@@ -6,6 +6,11 @@
 import urllib2
 import ssl
 import re
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 
 ssl._create_default_https_context = ssl._create_unverified_context
 
@@ -16,6 +21,7 @@ headers = {
     'User-Agent':'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36',
     'Accept-Language': 'en-US,en;q=0.9'
 }
+stories = []
 try:
     request = urllib2.Request(url, headers=headers)
     response = urllib2.urlopen(request)
@@ -27,9 +33,12 @@ try:
         haveImg = re.search('img',item[2])
         if not haveImg:
             print item[0],item[1],item[3]
+            stories.append(item[0]+'\n'+item[1]+'\n'+item[3])
 except urllib2.URLError, e:
     if hasattr(e,"code"):
         print e.code
     if hasattr(e,"reason"):
         print e.reason
-
+filename = "qsbk.txt"
+with open(filename,"wb") as f:
+    f.write('\n'.join(stories))

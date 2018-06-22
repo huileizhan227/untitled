@@ -34,8 +34,8 @@ class QSBK():
         self.stories = []
         #存放程序是否继续运行的变量
         self.enable = False
-    #传入某一页的索引获得页面代码
 
+    #传入某一页的索引获得页面代码
     def getPage(self,pageIndex):
         try:
             url = 'http://www.qiushibaike.com/hot/page/' + str(pageIndex)
@@ -49,10 +49,12 @@ class QSBK():
         except urllib2.URLError, e:
             if hasattr(e,'code'):
                 print '连接糗事百科失败，错误代码：',e.code
+                return None
             if hasattr(e,'reason'):
                 print '连接糗事百科失败，错误原因：',e.reason
+                return None
 
-    #传入某一页代码，返回本业不带图片的段子列表
+    #传入某一页代码，返回本页不带图片的段子列表
     def getPageItems(self,pageIndex):
         pageCode = self.getPage(pageIndex)
         if not pageCode:
@@ -100,7 +102,6 @@ class QSBK():
                 self.enable = False
                 return
             print "第{}页\n发布人:{}\n赞:{}\n{}".format(page,story[0],story[1],story[3])
-            #print page,'\n',story[0],'\n',story[1],'\n',story[3]
 
     #开始方法
     def start(self):
@@ -109,7 +110,7 @@ class QSBK():
         self.enable = True
         #先加载一页内容
         self.loadPage()
-        #局部变量，控制当前督导了第几页
+        #局部变量，控制当前读到了第几页
         nowpage = 0
         while self.enable:
             if len(self.stories)>0:
