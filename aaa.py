@@ -15,7 +15,7 @@ sys.setdefaultencoding = "utf-8"
 
 url = "https://ee.dety.men/htm_data/7/1809/3283686.html"
 path_head = "E:\浏览器s下载\圣城家园SCG字幕组￡人类清除计划2\图片\爬虫"
-path_end = "[女人是老虎]干露露的奶和屄，果真名不虚传[35P]"
+path_end = "aaa"
 
 def get_html(url):
     r = requests.get(url)
