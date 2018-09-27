@@ -11,7 +11,7 @@ import urllib
 import subprocess
 import lxml
 
-reload(sys);
+reload(sys)
 sys.setdefaultencoding("utf-8")
 
 def get_last_apk():
