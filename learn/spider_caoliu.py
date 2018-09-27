@@ -15,7 +15,7 @@ sys.setdefaultencoding = "utf-8"
 
 url = "https://ee.dety.men/htm_data/7/1809/3285586.html"
 path_head = "E:\浏览器s下载\圣城家园SCG字幕组￡人类清除计划2\图片\爬虫"
-path_end = "[雞动淫心]180923騷氣十足的美麗御姐《Chloe Vialaret》，籃球等級雙峰讓人下半身爆走！[21P]"
+path_end = "bbb"
 
 def get_html(url):
     r = requests.get(url)
