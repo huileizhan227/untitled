@@ -8,11 +8,12 @@ import requests
 from bs4 import BeautifulSoup
 #import sys
 import time
+import threading
 
 #reload(sys)
 #sys.setdefaultencoding = "utf-8"
 path_pre = r'D:/tmp/meizitu/'
-url = "http://meizitu.com/a/more_1.html"
+num = 7 #下载的页数
 
 
 def download_page(url):
@@ -57,9 +58,24 @@ def create_dirs(path):
     if not os.path.exists(path):
         os.makedirs(path)
 
-def execute(url):
+# def execute(url):
+def main():
+    queue = [i for i in range(1, num)]
+    threads = []
+    while len(queue) > 0:
+        for thread in threads:
+            if not thread.is_alive():
+                threads.remove(thread)
+        while len(threads)<5 and len(queue)>0: #最大线程数设置为5
+            cur_page = queue.pop(0)
+            url = 'http://meizitu.com/a/more_{}.html'.format(cur_page)
+            thread = threading.Thread(target=get_pic_list, args=(url,)) #此处target的值没有()
+            thread.setDaemon(True)
+            thread.start()
+            print('{}正在下载第{}页'.format(threading.current_thread().name, cur_page))
+            threads.append(thread)
 
 
 
 if __name__ == '__main__' :
-    get_pic_list(url)
+    main()
