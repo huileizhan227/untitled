@@ -19,7 +19,7 @@ def get_date():
     json_comment = response.text
     comments = json.loads(json_comment)
     total = comments['result']['total'] #总评论数
-    total = int(total / 100)
+    #total = int(total / 30)
 
     cols = ['author', 'score', 'disliked', 'likes', 'liked', 'ctime', 'content', 'last_ep_index', 'cursor']
     data_all = pd.DataFrame(index=range(total), columns=cols)
@@ -48,12 +48,16 @@ def get_date():
         comments = json.loads(json_comment)
 
         if j%50==0:
+            print("已经下载{}条记录".format(j))
             print(('已完成{}%！').format(round(j/total*100,2)))
-        time.sleep(0.1)
+        time.sleep(0.5)
+    print("Download Completed!")
     #用0替换数据中的na
     data_all.fillna(0)
+    #将数据中的时间戳转换成日期格式
     data_all['date'] = data_all.ctime.apply(lambda x: time_format(x))
-    data_all.to_csv('bilibili_gongzuoxibao.csv', index=False, encoding='utf_8_sig')
+    #存储为csv格式
+    data_all.to_csv('bilibili_gongzuoxibao.csv', index=False, encoding='utf_8_sig')#使用utf_8_sig编码格式显示不乱码
 
 
 def time_format(x):
