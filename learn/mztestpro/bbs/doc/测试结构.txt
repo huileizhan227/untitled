@@ -1,0 +1,59 @@
+
+地址：http://www.cnblogs.com/linuxchao/archive/2018/10/15/linuxchao-python-selenium-demo.html
+
+博客中给的一种测试项目结构如下：
+
+Retail_TestPro
+    Docs# 存放项目的相关文档　　　　　　　　
+        01测试计划
+        02测试大纲
+        03测试用例
+        04测试报告
+        05测试进度
+        06技术文档
+        07测试申请
+    Package# 存放第三方插件
+        HTMLTestRunner.py
+    Retail
+        Config
+            __init__.py
+            Conf.py# 读配置文件获取项目跟目录路径 并获取所有欲使用的目录文件的路径
+            Config.ini# 存放项目跟目录的路径
+        Data
+            TestData
+                __init__.py
+                elementDate.xlsx# 存放项目中所有的元素信息及测试数据
+                Email_receiver.txt# 存放邮件的接受者信息
+        Report# 测试报告
+            Image
+                Fail# 存放用例执行失败时的截图
+                Pass# 存放用例执行成功时的截图
+            Log# 存放用例执行过程中的log信息
+            TestReport# 存放测试用例执行完成后生成的测试报告
+        Test_case# 测试用例信息
+            Models # 存放一些公共方法
+                Doconfini.py# 读配置文件
+                Doexcel.py# 读excel文件
+                Driver.py# 存放driver
+                Log.py# 生成log
+                Myunit.py# 继承unittest.Testcase
+                Sendmail.py# 发送邮件
+                Strhandle.py# 字符串处理
+                Tcinfo.py# 测试用例基本信息
+                Testreport.py# 测试报告
+            Page_obj# 测试模块
+                Activerule_page.py
+                Base_page.py
+                Company_page.py
+                Createrule_page.py
+                Memberquery_page.py
+                Modifypw_page.py
+                Pointquery_page.py
+                ActiveRuleTc.py
+                CompanyQueryTc.py
+                CreateRuleTc.py
+                LoginTc.py
+                MemberQueryTc.py
+                ModifyPwTc.py
+                PointQueryTc.py
+        runTc.py# 执行测试用例
