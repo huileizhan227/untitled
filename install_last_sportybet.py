@@ -6,7 +6,24 @@ import urllib
 from bs4 import BeautifulSoup
 import os
 import subprocess
+r'''
+指令aapt dump badging D:\test\xxx.apk(APK的全名，如手机淘宝.apk)
 
+如果APK名字带有空格，则把路径用双引号括起来。
+
+aapt d badging "d:\apktest\QQ 7.1.8.apk"
+
+结果是
+
+package: name='com.tencent.mobileqq' versionCode='718' versionName='7.1.8' platformBuildVersionName=''
+
+install-location:'auto'
+
+sdkVersion:'15'
+
+targetSdkVersion:'9'
+
+'''
 
 def get_last_apk():
     url_head = 'http://package.ms.sportybet.com/job/AfricaBet/default/'
