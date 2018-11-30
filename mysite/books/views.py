@@ -14,4 +14,4 @@ def search(request):
         ctx['query'] = q
         return render(request, 'search_results.html',ctx)
     else:
-        return render(request, 'search_form.html',{'error':True})
+        return render(request, 'search_form2.html',{'error':True})
