@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block mainbody %}
+<form action="/search/" method="get">    <!--action为点击后出发的网页，即转到search/页，该页具体实现及对应方法见urls-->
+    <input type="text" name="q">
+    <input type="submit" value="搜索">
+</form>
+{% endblock %}
