@@ -1,0 +1,91 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://v3.bootcss.com/examples/starter-template/ -->
+<html lang="zh-CN">
+{% include 'base.html' %}
+<div class="div_full">
+    <div class="div_market_content">
+         <form class="form-horizontal style-form" method="post" action="">
+             {% csrf_token %}
+              <div class="form-group">
+                  {% if errors %}
+                  <label class="col-sm-2 col-sm-2 control-label"></label>
+                  <div>
+                      <p style="color:red;">{{errors.1}}</p>    <!--只输出第一个错误-->
+                  </div>
+                  {% endif %}
+                  <label class="col-sm-2 col-sm-2 control-label">Country</label>
+                  <div>
+                      <select class="form-control" style="width:300px;" name="country">
+                            <option>ke</option>
+                            <option>ng</option>
+                            <option>gh</option>
+                            <option>ke-test2</option>
+                      </select>
+                  </div>
+                  <br>
+                  <label class="col-sm-2 col-sm-2 control-label">Event Id</label>
+                  <div>
+                      <input type="text" class="form-control" style="width:300px;" placeholder="sr:match:xxxx" name="eventid">
+                  </div>
+                  <br>
+                  <label class="col-sm-2 col-sm-2 control-label">Sport Id</label>
+                  <div>
+                      <input type="text" class="form-control" style="width:300px;" value="sr:sport:1" name="sportid">
+                  </div>
+                  <br>
+                  <label class="col-sm-2 col-sm-2 control-label">Market Id</label>
+                  <div>
+                      <input type="text" class="form-control"  style="width:300px;" name="marketid">
+                  </div>
+                  <br>
+                  <label class="col-sm-2 col-sm-2 control-label">Outcome Id</label>
+                  <div>
+                      <input type="text" class="form-control"  style="width:300px;" name="outcomeid">
+                  </div>
+                  <br>
+                  <label class="col-sm-2 col-sm-2 control-label">Type</label>
+                  <div class="col-sm-10">
+                      <div class="radio">
+                          <label>
+                            <input type="radio" name="productid" id="optionsRadios1" value="3" checked>
+                            Pre-match
+                          </label>
+                      </div>
+                      <div class="radio">
+                          <label>
+                            <input type="radio" name="productid" id="optionsRadios2" value="1" >
+                            Live
+                          </label>
+                      </div>
+                  </div>
+                  <br><br><br>
+                  <label class="col-sm-2 col-sm-2 control-label"></label>
+                  <div>
+                      <button type="submit" class="btn btn-primary" name="rollback" value="rollback">Rollback</button>
+                      <button type="submit" class="btn btn-primary" name="settlement" value="settlement">SettleMent</button>
+                  </div>
+                  <br>
+                  <label class="col-sm-2 col-sm-2 control-label">Result</label>
+                  <div class="col-sm-10">
+                      <div class="result_content">
+                          <!--
+                          <iframe id="i_result" name="i_result" src="">
+                            {{response}}
+                          </iframe>
+                          -->
+                          {{response}}
+                      </div>
+                  </div>
+              </div>
+         </form>
+    </div>
+</div>
+
+
+    </div>
+
+
+
+</div>
+</html>
