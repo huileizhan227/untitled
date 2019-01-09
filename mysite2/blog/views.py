@@ -7,4 +7,4 @@ from blog.models import BlogPost
 def blog_index(request):
     bloglist = BlogPost.objects.all()
     blog_list = {'blog_list':bloglist}
-    return render(request, 'index.html', blog_list)
+    return render(request, 'base.html', blog_list)
