@@ -1,0 +1,24 @@
+2019-01-09 16:10:46,772 ERROR [django.request:228] Internal Server Error: /market_ctrl/
+Traceback (most recent call last):
+  File "C:\Python3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\untitled2\mocksite\market_ctrl\views.py", line 87, in market_ctrl
+    logging.info('errors: ' + errors)
+TypeError: can only concatenate str (not "list") to str
+2019-01-09 16:10:47,137 WARNI [django.request:228] Not Found: /favicon.ico
+2019-01-09 16:11:46,148 INFO  [root:33] country: ke
+2019-01-09 16:11:46,148 INFO  [root:35] eventid: sr:match:15109325
+2019-01-09 16:11:46,148 INFO  [root:37] sportid: sr:sport:1
+2019-01-09 16:11:46,149 INFO  [root:39] marketid: 1
+2019-01-09 16:11:46,149 INFO  [root:42] productid: 3
+2019-01-09 16:11:46,149 INFO  [root:46] coun_ip: 172.31.64.109
+2019-01-09 16:11:46,149 INFO  [root:64] outcomeid: 1
+2019-01-09 16:11:46,149 INFO  [root:80] body: {'action': 'bet_settlement', 'sendTime': 1547021506149, 'traceId': '2017023219203321234561', 'source': 'FACTS', 'data': [{'id': 'sr:match:15109325/uof:3/sr:sport:1/1', 'outcomes': [{'id': 1, 'desc': 'oucomeDesc1', 'result': 1}]}]}
+2019-01-09 16:11:46,149 INFO  [root:82] url: http://172.31.64.109:8131/realSportsGame/settle
+2019-01-09 16:11:46,153 DEBUG [urllib3.connectionpool:205] Starting new HTTP connection (1): 127.0.0.1:8888
+2019-01-09 16:11:46,748 DEBUG [urllib3.connectionpool:393] http://127.0.0.1:8888 "POST http://172.31.64.109:8131/realSportsGame/settle HTTP/1.1" 200 None
+2019-01-09 16:11:46,749 INFO  [root:85] response: {"bizCode":10000,"message":"success","data":{}}

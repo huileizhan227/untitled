@@ -17,9 +17,6 @@ coun_ip = {
     'ke-test2': '172.31.64.214'
 }
 
-def home(request):
-    return render(request, 'home.html')
-
 def market_ctrl(request):
     errors = []
     ctx = {}
@@ -63,7 +60,7 @@ def market_ctrl(request):
                 }
                 body = str(body)
                 logger.info('body: ' + body)
-                url = "http://{}:8131/realSportsGame/settle".format(ip)
+                url = "http://{}:8131/realSportsGame/rollback".format(ip)
                 logger.info('url: ' + url)
             else:
                 outcomeid = int(request.POST['outcomeid'])
@@ -91,6 +88,3 @@ def market_ctrl(request):
     ctx['errors'] = errors
     logger.info('errors: ' + ';'.join(errors))
     return render(request, 'market_ctrl.html', ctx)
-
-def bingo(request):
-    return render(request, 'bingo.html')

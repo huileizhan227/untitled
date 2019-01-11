@@ -17,12 +17,14 @@ from django.urls import path, re_path
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from market_ctrl import views
+from home import home
+from bingo import bingo
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/',views.home),
+    path('home/',home.home),
     path('market_ctrl/',views.market_ctrl),
-    path('bingo/', views.bingo),
+    path('bingo/', bingo.bingo),
 ]
 
 urlpatterns += staticfiles_urlpatterns()

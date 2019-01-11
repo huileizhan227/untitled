@@ -1,0 +1,22 @@
+[2019-01-10 20:12:56,958][Thread-39:13548][task_id:django.request][log.py:228][ERROR][Internal Server Error: /home/]
+Traceback (most recent call last):
+  File "C:\Python3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\untitled2\mocksite\home\home.py", line 121, in home
+    outcomeid = int(request.POST['outcomeid'])
+ValueError: invalid literal for int() with base 10: ''
+[2019-01-10 20:14:04,345][Thread-50:10908][task_id:django.request][log.py:228][ERROR][Internal Server Error: /home/]
+Traceback (most recent call last):
+  File "C:\Python3\lib\site-packages\django\core\handlers\exception.py", line 34, in inner
+    response = get_response(request)
+  File "C:\Python3\lib\site-packages\django\core\handlers\base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "C:\Python3\lib\site-packages\django\core\handlers\base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Python27\untitled2\mocksite\home\home.py", line 121, in home
+    outcomeid = int(request.POST['outcomeid'])
+ValueError: invalid literal for int() with base 10: ''
