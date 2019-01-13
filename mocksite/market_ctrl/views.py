@@ -24,7 +24,7 @@ def market_ctrl(request):
         if not request.POST.get('country', ''):
             errors.append('Select a Country.')
         if not request.POST.get('eventid', ''):
-            errors.append('Enter a Event id.')
+            errors.append('Enter an Event id.')
         if not request.POST.get('sportid', ''):
             errors.append('Enter a Sport id.')
         if not request.POST.get('marketid', ''):

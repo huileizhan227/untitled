@@ -27,11 +27,11 @@ def home(request):
     if request.method == 'POST':
         if 'operation' in request.POST:
             if request.POST['operation'] == 'bet cancel':
-                logger.info('----------bet cancel----------')
+                logger.info('----------Home bet cancel----------')
                 if not request.POST.get('country', ''):
                     errors.append('Select a Country.')
                 if not request.POST.get('eventid', ''):
-                    errors.append('Select a Event Id.')
+                    errors.append('Enter an Event Id.')
                 if not errors:
                     country = request.POST['country']
                     logger.info('country: ' + country)
@@ -50,11 +50,11 @@ def home(request):
                     ctx['response'] = response.text
                     logger.info('response: ' + response.text)
             elif request.POST['operation'] == 'suspend game':
-                logger.info('----------suspend game----------')
+                logger.info('----------Home suspend game----------')
                 if not request.POST.get('country', ''):
                     errors.append('Select a Country.')
                 if not request.POST.get('eventid', ''):
-                    errors.append('Select a Event Id.')
+                    errors.append('Enter an Event Id.')
                 if not errors:
                     country = request.POST['country']
                     logger.info('country: ' + country)
@@ -67,11 +67,11 @@ def home(request):
                     ctx['response'] = response.text
                     logger.info('response: ' + response.text)
             elif request.POST['operation'] == 'rollback':
-                logger.info('----------rollback----------')
+                logger.info('----------Home rollback----------')
                 if not request.POST.get('country', ''):
                     errors.append('Select a Country.')
                 if not request.POST.get('eventid', ''):
-                    errors.append('Enter a Event id.')
+                    errors.append('Enter an Event id.')
                 if not request.POST.get('sportid', ''):
                     errors.append('Enter a Sport id.')
                 if not request.POST.get('marketid', ''):
@@ -112,11 +112,11 @@ def home(request):
                     ctx['response'] = response.text
                     logger.info('response: ' + response.text)
             else:
-                logger.info('----------settlement----------')
+                logger.info('----------Home settlement----------')
                 if not request.POST.get('country', ''):
                     errors.append('Select a Country.')
                 if not request.POST.get('eventid', ''):
-                    errors.append('Enter a Event id.')
+                    errors.append('Enter an Event id.')
                 if not request.POST.get('sportid', ''):
                     errors.append('Enter a Sport id.')
                 if not request.POST.get('marketid', ''):
@@ -164,8 +164,6 @@ def home(request):
                     ctx['response'] = response.text
                     logger.info('response: ' + response.text)
 
-    else:
-        errors.append('Select a Operation.')
     ctx['errors'] = errors
     logger.info('errors: ' + ';'.join(errors))
     return render(request, 'home.html', ctx)

@@ -3,91 +3,137 @@
 <!-- saved from url=(0049)https://v3.bootcss.com/examples/starter-template/ -->
 <html lang="zh-CN">
 {% include 'base.html' %}
+<script>
+function opeChange(obj){
+	var val = obj.value;
+	if(val == 'rollback'){
+		
+		document.getElementById("d_sportid").style.display = '';
+		document.getElementById("d_marketid").style.display = '';
+		document.getElementById("d_outcomeid").style.display = "none"
+		document.getElementById("d_type").style.display = '';	
+	}
+	else if(val == 'settlement'){
+		document.getElementById("d_sportid").style.display = '';
+		document.getElementById("d_marketid").style.display = '';
+		document.getElementById("d_outcomeid").style.display = '';
+		document.getElementById("d_type").style.display = '';	
+	}
+	else if(val == 'bet cancel'){
+		document.getElementById("d_sportid").style.display = "none";
+		document.getElementById("d_marketid").style.display = "none";
+		document.getElementById("d_outcomeid").style.display = "none";
+		document.getElementById("d_type").style.display = "none";	
+	}
+	else if(val == 'suspend game'){
+		document.getElementById("d_sportid").style.display = "none";
+		document.getElementById("d_marketid").style.display = "none";
+		document.getElementById("d_outcomeid").style.display = "none";
+		document.getElementById("d_type").style.display = "none";	
+	}
+}
+</script>
+
 <div class="div_full">
     <div class="div_market_content">
          <form class="form-horizontal style-form" method="post" action="">
              {% csrf_token %}
               <div class="form-group">
-                  {% if errors %}
-                  <label class="col-sm-2 col-sm-2 control-label"></label>
-                  <div>
-                      <p style="color:red;">{{errors.0}}</p>    <!--只输出第一个错误-->
-                  </div>
-                  {% endif %}
-				  <label class="col-sm-2 col-sm-2 control-label">Operation</label>
-                  <div>
-                      <select class="form-control" style="width:300px;" name="operation">
-                            <option>settlement</option>
-                            <option>rollback</option>
-                            <option>bet cancel</option>
-							<option>suspend game</option>
-                      </select>
-                  </div>
-				  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Country</label>
-                  <div>
-                      <select class="form-control" style="width:300px;" name="country">
-                            <option>ke</option>
-                            <option>ng</option>
-                            <option>gh</option>
-                            <option>ke-test2</option>
-                      </select>
-                  </div>
-                  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Event Id</label>
-                  <div>
-                      <input type="text" class="form-control" style="width:300px;" placeholder="sr:match:xxxx" name="eventid">
-                  </div>
-                  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Sport Id</label>
-                  <div>
-                      <input type="text" class="form-control" style="width:300px;" value="sr:sport:1" name="sportid">
-                  </div>
-                  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Market Id</label>
-                  <div>
-                      <input type="text" class="form-control"  style="width:300px;" name="marketid">
-                  </div>
-                  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Outcome Id</label>
-                  <div>
-                      <input type="text" class="form-control"  style="width:300px;" name="outcomeid">
-                  </div>
-                  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Type</label>
-                  <div class="col-sm-10">
-                      <div class="radio">
-                          <label>
-                            <input type="radio" name="productid" id="optionsRadios1" value="3" checked>
-                            Pre-match
-                          </label>
-                      </div>
-                      <div class="radio">
-                          <label>
-                            <input type="radio" name="productid" id="optionsRadios2" value="1" >
-                            Live
-                          </label>
-                      </div>
-                  </div>
-                  <br><br><br>
-                  <label class="col-sm-2 col-sm-2 control-label"></label>
-                  <div>
-                      <button type="submit" class="btn btn-primary" name="submit" value="submit">Submit</button>
-                  </div>
-                  <br>
-                  <label class="col-sm-2 col-sm-2 control-label">Result</label>
-                  <div class="col-sm-10">
-                      <div class="result_content">
-                          <!--
-                          <iframe id="i_result" name="i_result" src="">
-                            {{response}}
-                          </iframe>
-                          -->
+                {% if errors %}
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div>
+                    <p style="color:red;">{{errors.0}}</p>    <!--只输出第一个错误-->
+                </div>
+                {% endif %}
+				<div id="d_operation">
+				<label class="col-sm-2 col-sm-2 control-label">Operation</label>
+                <div>
+                    <select class="form-control" style="width:300px;" name="operation" onchange='opeChange(this)'>
+                          <option value="settlement">settlement</option>
+                          <option value="rollback">rollback</option>
+                          <option value="bet cancel">bet cancel</option>
+						<option value="suspend game">suspend game</option>
+                    </select>
+                </div>
+				<br>
+				</div>
+				<div id="d_country">
+                <label class="col-sm-2 col-sm-2 control-label">Country</label>
+                <div>
+                    <select class="form-control" style="width:300px;" name="country">
+                          <option>ke</option>
+                          <option>ng</option>
+                          <option>gh</option>
+                          <option>ke-test2</option>
+                    </select>
+                </div>
+                <br>
+				</div>
+				<div id="d_eventid">
+                <label class="col-sm-2 col-sm-2 control-label">Event Id</label>
+                <div>
+                    <input type="text" class="form-control" style="width:300px;" placeholder="sr:match:xxxx" name="eventid">
+                </div>
+                <br>
+				</div>
+				<div id="d_sportid">
+                <label class="col-sm-2 col-sm-2 control-label">Sport Id</label>
+                <div>
+                    <input type="text" class="form-control" style="width:300px;" value="sr:sport:1" name="sportid">
+                </div>
+                <br>
+				</div>
+				<div id="d_marketid">
+                <label class="col-sm-2 col-sm-2 control-label">Market Id</label>
+                <div>
+                    <input type="text" class="form-control"  style="width:300px;" name="marketid">
+                </div>
+                <br>
+				</div>
+				<div id="d_outcomeid">
+                <label class="col-sm-2 col-sm-2 control-label">Outcome Id</label>
+                <div>
+                    <input type="text" class="form-control"  style="width:300px;" name="outcomeid">
+                </div>
+                <br>
+				</div>
+				<div id="d_type">
+                <label class="col-sm-2 col-sm-2 control-label">Type</label>
+                <div class="col-sm-10">
+                    <div class="radio">
+                        <label>
+                          <input type="radio" name="productid" id="optionsRadios1" value="3" checked>
+                          Pre-match
+                        </label>
+                    </div>
+                    <div class="radio">
+                        <label>
+                          <input type="radio" name="productid" id="optionsRadios2" value="1" >
+                          Live
+                        </label>
+                    </div>
+                </div>
+                <br><br><br>
+				</div>
+                <label class="col-sm-2 col-sm-2 control-label"></label>
+                <div>
+                    <button type="submit" class="btn btn-primary" name="submit" value="submit">Submit</button>
+                </div>
+                <br>
+                <label class="col-sm-2 col-sm-2 control-label">Result</label>
+                 <div class="col-sm-10">
+					<button id="btn_clear_result" class="btn_small">clear</button>
+                    <div class="result_content">
+                        <!--
+                        <iframe id="i_result" name="i_result" src="">
                           {{response}}
-                      </div>
+                        </iframe>
+                        -->
+                        {{response}}
                   </div>
-              </div>
-         </form>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
 
