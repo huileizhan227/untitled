@@ -1,0 +1,1 @@
+py .\quicktest\run.py -o -p D:\daily_test_online >> D:\daily_test_online\all.log 2>&1
