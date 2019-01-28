@@ -123,6 +123,8 @@ def home(request):
                     errors.append('Enter a Market Id.')
                 if not request.POST.get('outcomeid', ''):
                     errors.append('Enter a Outcome Id')
+                if not request.POST.get('result', ''):
+                    errors.append('Enter a Result')
                 if not request.POST.get('productid', ''):
                     errors.append('Select a Type.')
                 if not errors:
@@ -136,6 +138,8 @@ def home(request):
                     logger.info('marketid: ' + marketid)
                     outcomeid = int(request.POST['outcomeid'])
                     logger.info('outcomeid: ' + str(outcomeid))
+                    result = int(request.POST['result'])
+                    logger.info('result: ' + str(result))
                     productid = request.POST.get('productid', '')
                     logger.info('productid: ' + productid)
                     time_now = time.time()
@@ -150,9 +154,9 @@ def home(request):
                         'data': [{
                             'id': '{}/uof:{}/{}/{}'.format(eventid, productid, sportid, marketid),
                             'outcomes': [{
-                                'id': 1,
+                                'id': outcomeid,
                                 'desc': 'oucomeDesc1',
-                                'result': outcomeid
+                                'result': result
                             }]
                         }]
                     }

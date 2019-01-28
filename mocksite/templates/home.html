@@ -6,29 +6,32 @@
 <script>
 function opeChange(obj){
 	var val = obj.value;
-	if(val == 'rollback'){
-		
+	if(val == 'rollback'){	
 		document.getElementById("d_sportid").style.display = '';
 		document.getElementById("d_marketid").style.display = '';
 		document.getElementById("d_outcomeid").style.display = "none"
+		document.getElementById("d_result").style.display = 'none';
 		document.getElementById("d_type").style.display = '';	
 	}
 	else if(val == 'settlement'){
 		document.getElementById("d_sportid").style.display = '';
 		document.getElementById("d_marketid").style.display = '';
 		document.getElementById("d_outcomeid").style.display = '';
+		document.getElementById("d_result").style.display = '';
 		document.getElementById("d_type").style.display = '';	
 	}
 	else if(val == 'bet cancel'){
 		document.getElementById("d_sportid").style.display = "none";
 		document.getElementById("d_marketid").style.display = "none";
 		document.getElementById("d_outcomeid").style.display = "none";
+		document.getElementById("d_result").style.display = 'none';
 		document.getElementById("d_type").style.display = "none";	
 	}
 	else if(val == 'suspend game'){
 		document.getElementById("d_sportid").style.display = "none";
 		document.getElementById("d_marketid").style.display = "none";
 		document.getElementById("d_outcomeid").style.display = "none";
+		document.getElementById("d_result").style.display = 'none';
 		document.getElementById("d_type").style.display = "none";	
 	}
 }
@@ -93,7 +96,14 @@ function opeChange(obj){
 				<div id="d_outcomeid">
                 <label class="col-sm-2 col-sm-2 control-label">Outcome Id</label>
                 <div>
-                    <input type="text" class="form-control"  style="width:300px;" name="outcomeid">
+                    <input type="text" class="form-control"  style="width:300px;" name="outcomeid" placeholder="Home-1, Draw-2, Away-3">
+                </div>
+                <br>
+				</div>
+				<div id="d_result">
+                <label class="col-sm-2 col-sm-2 control-label">Result</label>
+                <div>
+                    <input type="text" class="form-control"  style="width:300px;" name="result" placeholder="Won-1, Lost-0">
                 </div>
                 <br>
 				</div>
@@ -101,13 +111,11 @@ function opeChange(obj){
                 <label class="col-sm-2 col-sm-2 control-label">Type</label>
                 <div class="col-sm-10">
                     <div class="radio">
-                        <label>
+                        <label class="radio-inline">
                           <input type="radio" name="productid" id="optionsRadios1" value="3" checked>
                           Pre-match
                         </label>
-                    </div>
-                    <div class="radio">
-                        <label>
+                        <label class="radio-inline">
                           <input type="radio" name="productid" id="optionsRadios2" value="1" >
                           Live
                         </label>

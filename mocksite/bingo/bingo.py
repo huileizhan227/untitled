@@ -11,6 +11,7 @@ import logging
 # 生成一个以当前文件名为名字的logger实例
 logger = logging.getLogger(__name__)
 # 生成一个名为collect的logger实例
+collect_logger = logging.getLogger("collect")
 
 coun_ip = {
     'ke': '172.31.64.109',
