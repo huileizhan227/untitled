@@ -143,10 +143,10 @@ class Travel:
             raise Exception("region not defined: {}".format(country))
 
         el_bottom = self.driver.find_element_by_id("android:id/tabs")
-        els = el_bottom.find_elements_by_class_name(
+        els = el_bottom.find_elements_by_class_name(        # 底部的整个tab，共4个
             "android.widget.RelativeLayout"
         )
-        els[-1].click()
+        els[-1].click()     # 点击最后一个tab：me tab
         time.sleep(5)
         el = self.driver.find_element_by_id("com.sportybet.android:id/general")
         time.sleep(5) # wait for deposit pop
@@ -170,7 +170,7 @@ class Travel:
                 time.sleep(10)
                 el = self.driver.find_element_by_id("com.sportybet.android:id/skip")
                 el.click()
-            except expression as identifier:
+            except Exception as identifier:
                 raise Exception("can not find country: ".format(country))
         time.sleep(1)
         return self
@@ -262,7 +262,7 @@ class Travel:
             "com.sportybet.android:id/edit_text_ksh"
         )
         el_stake.click()
-        for x in range(8):
+        for x in range(8):  # el_stake.clear() ?
             self.driver.press_keycode(util.key_code_backspace)
             self.driver.press_keycode(util.key_code_del_forward)
             time.sleep(0.1)
@@ -290,7 +290,8 @@ class Travel:
         el = self.driver.find_element_by_id(
             "com.sportybet.android:id/auto_change_switch"
         )
-        el.click()
+        if not el.get_attribute('checked'):     # el.is_checked()  Accept any odd changes未选，则点击
+            el.click()
         self.take_screen("betslip")
         for x in range(2):
             self.swipe_up()
@@ -1111,6 +1112,7 @@ class Travel:
         else:
             screen_name = "travel_{}.png".format(screen_name)
         screen_path = os.path.join(self.screen_folder, screen_name)
+        # self.get_screenshot_as_file(screen_path)
         util.base64_to_img(self.driver.get_screenshot_as_base64(), screen_path)
         self.screen_index += 1
         return self
@@ -1141,6 +1143,30 @@ class Travel:
         self.driver.swipe(
             self.screen_width/2, self.screen_height*3/4, 
             self.screen_width/2, self.screen_height/4, 
+            wait_time
+        )
+        return self
+
+    def swipe_down(self,wait_time=500):
+        self.driver.swipe(
+            self.screen_width/2, self.screen_height/4,
+            self.screen_width/2, self.screen_height*3/4,
+            wait_time
+        )
+        return self
+
+    def swipe_right(self,wait_time=500):
+        self.driver.swipe(
+            self.screen_width/4, self.screen_height/2,
+            self.screen_width*3/4, self.screen_height/2,
+            wait_time
+        )
+        return self
+
+    def swipe_left(self,wait_time=500):
+        self.driver.swipe(
+            self.screen_width*3/4, self.screen_height/2,
+            self.screen_width/4, self.screen_height/2,
             wait_time
         )
         return self
@@ -1193,7 +1219,7 @@ class Travel:
         return self
 
     def back(self):
-        self.driver.press_keycode(util.key_code_back)
+        self.driver.press_keycode(util.key_code_back)   # key_code_back = 4 from util package
         return self
     
     def back_home_from_top_page(self):
@@ -1215,6 +1241,8 @@ class Travel:
 
     def find_child_text(self, parent, text):
         els = parent.find_elements_by_class_name("android.widget.TextView")
+        if (not els):
+            return None
         for el in els:
             if(el.text == text):
                 return el

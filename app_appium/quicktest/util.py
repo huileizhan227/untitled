@@ -9,6 +9,7 @@ key_code_back = 4
 key_code_backspace = 67
 key_code_del_forward = 112
 
+# self.get_screenshot_as_file(screen_path)
 def base64_to_img(b64_raw, save_path):
     dir_name = os.path.dirname(save_path)
     if(not os.path.exists(dir_name)):

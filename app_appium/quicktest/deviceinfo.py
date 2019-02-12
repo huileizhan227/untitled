@@ -6,6 +6,10 @@ import re
 import time
 
 def get_density():
+    '''
+    获取屏幕密度
+    :return: int型屏幕密度，如320
+    '''
     command = 'adb shell wm density'
     p = subprocess.Popen(
         command, shell=True, 
@@ -30,6 +34,10 @@ def get_density():
         raise
 
 def get_android_version():
+    '''
+    获取Android版本号
+    :return:
+    '''
     command = 'adb shell getprop ro.build.version.release'
     p = subprocess.Popen(
         command, shell=True, 

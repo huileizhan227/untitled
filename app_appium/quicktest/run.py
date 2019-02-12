@@ -16,7 +16,7 @@ print("---------")
 print(time.strftime("%Y%m%d_%H%M",time.localtime()))
 print("ready to run")
 is_online = False
-screen_folder = "D:\\quicktest"
+screen_folder = "D:\\quicktest"     # 截屏保存目录
 version = ""
 try:
     opts, args = getopt.getopt(
@@ -57,10 +57,10 @@ for country in countries:
 
     # report
     report_folder = os.path.join(t.screen_folder, "report")
-    base_folder = os.path.join(t.screen_folder, os.path.pardir, "base")
+    base_folder = os.path.join(t.screen_folder, os.path.pardir, "base") # os.path.pardir为上一层目录
     shutil.copytree(base_folder, os.path.join(t.screen_folder,"base"))
     if(not os.path.exists(base_folder)):
         print("base_folder {} not exist".format(base_folder))
         sys.exit()
-    report.pic_diff(t.screen_folder, base_folder, report_folder)
+    report.pic_diff(t.screen_folder, base_folder, report_folder)    # 图片对比
     report.html_report("../", "../base/", report_folder)

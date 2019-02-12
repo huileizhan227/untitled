@@ -1,6 +1,6 @@
 #!python3
 # coding=utf-8
-
+# 今日菜单-易信
 import time
 from appium import webdriver
 from selenium.common.exceptions import NoSuchElementException
