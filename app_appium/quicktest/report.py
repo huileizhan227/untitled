@@ -10,6 +10,14 @@ import os
 def pic_diff(folder, folder_base, report_folder):
     """
     标出folder中的图片与folder_base中同名图片不一样的地方，保存到report_folder中
+
+    1、读取图片
+    2、转化为灰度图
+    3、用compare_ssim算法找出diff，并对diff处理
+    4、将diff转为为二值图 cv2.threshold
+    5、检测二值图的轮廓 cv2.findContours()[0]
+    6、对轮廓的每一个画矩形
+    7、保存到新的图片中cv2.imwrite
     """
     if((not os.path.exists(folder)) or (not os.path.exists(folder_base))):
         raise Exception("folder not exists")
@@ -37,9 +45,9 @@ def pic_diff(folder, folder_base, report_folder):
         # 用矩形标出不同处
         for c in cnts:
             (x,y,w,h) = cv2.boundingRect(c)
-            cv2.rectangle(image_1,(x,y),(x+w,y+h),(0,0,255),2)
+            cv2.rectangle(image_1,(x,y),(x+w,y+h),(0,0,255),2)  # (x,y)为左上角点，(x+w,y+h)为右下角点，(0,0,255)为画线颜色，2为宽度
             cv2.rectangle(image_2,(x,y),(x+w,y+h),(0,0,255),2)
-        cv2.imwrite(os.path.join(report_folder, file_name),image_2) # 把image_2保存为report_folder/file_name
+        cv2.imwrite(os.path.join(report_folder, file_name),image_2) # 把画完矩形的新image_2保存为report_folder/file_name
 
 def html_report(folder_part, folder_base_part, report_folder):
     folder = os.path.join(report_folder,folder_part)
