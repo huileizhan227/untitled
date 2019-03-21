@@ -9,9 +9,8 @@ from bs4 import BeautifulSoup
 
 ssl._create_default_https_context = ssl._create_unverified_context
 resp = requests.get("http://www.sina.com.cn/")
-print resp
 #print resp.content
-print "----------------------------------"
+print("----------------------------------")
 bsobj = BeautifulSoup(resp.content,'lxml')
 a_list = bsobj.find_all('a')
 text = ''

@@ -18,7 +18,7 @@ data = ''.join(buffer)
 s.close()
 
 header,html = data.split('\r\n\r\n',1)
-print header
+print(header)
 with open('sina.html','wb') as f:
     f.write(html)
 
