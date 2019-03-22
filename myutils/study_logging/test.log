@@ -1,0 +1,5 @@
+[2019-03-22 17:52:14,703] DEBUG [<module>: test_logging.py, 24] debug message
+[2019-03-22 17:52:14,703] INFO  [<module>: test_logging.py, 25] info message
+[2019-03-22 17:52:14,704] WARNI [<module>: test_logging.py, 26] warn message
+[2019-03-22 17:52:14,704] ERROR [<module>: test_logging.py, 27] error message
+[2019-03-22 17:52:14,704] CRITI [<module>: test_logging.py, 28] critical message
