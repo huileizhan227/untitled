@@ -37,6 +37,8 @@ def cut_image(image):
 #保存
 def save_images(image_list,file_name):
     index = 1
+    if not os.path.exists(r'C:/Users/tn_kunjiang.yu/Desktop/result/'):
+        os.mkdir(r'C:/Users/tn_kunjiang.yu/Desktop/result/')
     for image in image_list:
         # 对于分割后保存的图片以 原名+序号+.png命名
         image.save(r'C:/Users/tn_kunjiang.yu/Desktop/result/' + file_name + str(index) + '.png', 'PNG')
