@@ -2,7 +2,7 @@
 #! -*- coding:utf-8 -*-
 #! @Time : 2019/3/15 16:33
 #! @Auther : Yu Kunjiang
-#! @File : cut_image.py
+#! @File : image_cut.py
 
 from PIL import Image
 import sys
