@@ -3,11 +3,7 @@
 #! @Time : 2019/4/3 16:16
 #! @Auther : Yu Kunjiang
 #! @File : DNS_Changer.py
-#！/user/bin/env pythone2.7
-#! -*- coding:utf-8 -*-
-#! @Time : 2019/1/9 11:27
-#! @Auther : Yu Kunjiang
-#! @File : test.py
+
 # 打包用
 import six
 import packaging
