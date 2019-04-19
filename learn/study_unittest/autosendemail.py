@@ -16,12 +16,12 @@ from email.header import Header
 
 smtpserver = 'smtp.163.com'
 user = 'yukunjiang227@163.com'
-password = ''
+password = 'yu6733530'
 sender = 'yukunjiang227@163.com'
 receiver = ['374826581@qq.com']
-subject = "自动定时发送测试报告" + datetime.datetime.now().strftime('%Y-%m-%d')
+subject = "自动定时发送测试报告" + datetime.datetime.now().strftime('%Y%m%d')
 test_dir = r'C:\Python27\untitled2\learn\study_unittest'
-test_report_dir = r'C:\Python27\untitled2\learn\study_unittest'
+test_report_dir = r'C:\Python27\untitled2\learn\study_unittest\report'
 
 def new_file(test_dir):
     lists = os.listdir(test_dir)
@@ -32,11 +32,15 @@ def send(new_file):
     with open(new_file, 'rb') as f:
         mail_body = f.read()
         f.close()
+
+    # 邮件正文，html格式显示
     msg = MIMEMultipart('mixed')
     msg_html1 = MIMEText(mail_body, 'html', 'utf-8')
     msg.attach(msg_html1)
 
-    msg_html2 = MIMEText(mail_body, 'html', 'utf-8')
+    # 邮件附件，可添加多个
+    msg_html2 = MIMEText(mail_body, 'base64', 'utf-8')
+    msg_html2["Content-Type"] = 'application/octet-stream'
     msg_html2["Content-Disposition"] = 'attachment; filename="TestReport.html"'
     msg.attach(msg_html2)
 

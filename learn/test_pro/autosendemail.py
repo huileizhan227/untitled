@@ -32,11 +32,15 @@ def send(new_file):
     with open(new_file, 'rb') as f:
         mail_body = f.read()
         f.close()
+
+    # 邮件正文，html格式显示
     msg = MIMEMultipart('mixed')
     msg_html1 = MIMEText(mail_body, 'html', 'utf-8')
     msg.attach(msg_html1)
 
-    msg_html2 = MIMEText(mail_body, 'html', 'utf-8')
+    # 邮件附件，可添加多个
+    msg_html2 = MIMEText(mail_body, 'base64', 'utf-8')
+    msg_html2["Content-Type"] = 'application/octet-stream'
     msg_html2["Content-Disposition"] = 'attachment; filename="TestReport.html"'
     msg.attach(msg_html2)
 
