@@ -11,7 +11,7 @@ from TestModel.models import Test
 def testdb(request):
     test1 = Test(name='runoob')
     test1.save()
-    return HttpResponse("<p>数据添加成功！</p>")
+    return HttpResponse("<p.html>数据添加成功！</p.html>")
 
 def testdb_get_data(request):
     # 初始化
@@ -40,7 +40,7 @@ def testdb_get_data(request):
     for var in list:
         response1 += var.name + " "
     response = response1
-    return HttpResponse("<p>" + response + "</p>")
+    return HttpResponse("<p.html>" + response + "</p.html>")
 
 def testdb_update(request):
     # 修改其中一个id=1的name字段，再save，相当于SQL中的UPDATE
@@ -52,7 +52,7 @@ def testdb_update(request):
     # 修改所有的列
     Test.objects.all().update(name='Netease')
 
-    return HttpResponse("<p>修改成功</p>")
+    return HttpResponse("<p.html>修改成功</p.html>")
 
 def testdb_delete(request):
     test1 = Test.objects.get(id=1)
@@ -61,7 +61,7 @@ def testdb_delete(request):
     Test.objects.filter(id=2).delete()
     # 删除所有数据
     Test.objects.all().delete()
-    return HttpResponse("<p>删除成功</p>")
+    return HttpResponse("<p.html>删除成功</p.html>")
 
 
 

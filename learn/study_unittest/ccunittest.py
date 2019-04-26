@@ -12,7 +12,7 @@
 Created on 2016-7-27
 @author: Jennifer
 Project:使用unittest框架编写测试用例思路
-参考链接：http://www.cnblogs.com/yufeihlf/p/5707929.html
+参考链接：http://www.cnblogs.com/yufeihlf/p.html/5707929.html
 '''
 # 3.导入unittest模块
 import unittest

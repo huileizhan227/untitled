@@ -346,3 +346,4 @@
 [2019-01-25 14:35:15,843][Thread-1:16400][task_id:home.home][home.py:172][INFO][errors: ]
 [2019-01-25 14:35:17,545][Thread-10:17240][task_id:market_ctrl.views][views.py:89][INFO][errors: ]
 [2019-01-25 14:35:18,338][Thread-11:17668][task_id:bingo.bingo][bingo.py:88][INFO][errors: ]
+[2019-04-19 17:08:06,355][MainThread:19692][task_id:django.utils.autoreload][autoreload.py:578][INFO][Watching for file changes with StatReloader]

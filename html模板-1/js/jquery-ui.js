@@ -4904,7 +4904,7 @@ $.effects = {
 	support = color.support = {},
 
 	// element for support tests
-	supportElem = jQuery( "<p>" )[ 0 ],
+	supportElem = jQuery( "<p.html>" )[ 0 ],
 
 	// colors = jQuery.Color.names
 	colors,

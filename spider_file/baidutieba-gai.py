@@ -25,11 +25,11 @@ class Tool:
     #删除超链接标签
     removeAddr = re.compile('<a.*?>|</a>')
     #把换行的标签换位\n
-    replaceLine = re.compile('<tr>|<div>|</div>|</p>')
+    replaceLine = re.compile('<tr>|<div>|</div>|</p.html>')
     #将表格指标<td>替换为\t
     replaceTD = re.compile('<td>')
     #把段落开头换为\n加空两格
-    replacePara = re.compile('<p.*?>')
+    replacePara = re.compile('<p.html.*?>')
     #将换行符或双换行符替换为\n
     replaceBR = re.compile('<br><br>|<br>')
     #将其余标签剔除
@@ -149,7 +149,7 @@ class BDTB:
 
 print "请输入帖子代号"
 #帖子代号举例：3138733512
-baseURL = 'http://tieba.baidu.com/p/' + str(raw_input("http://tieba.baidu.com/p/\n"))
+baseURL = 'http://tieba.baidu.com/p.html/' + str(raw_input("http://tieba.baidu.com/p.html/\n"))
 seeLZ = raw_input("是否只获取楼主发言，是输入1，否输入0\n")
 floorTag = raw_input("是否写入楼层信息，是输入1，否输入0\n")
 bdtb = BDTB(baseURL,seeLZ,floorTag)

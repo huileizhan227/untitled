@@ -16,7 +16,7 @@ class Tool:
     # 删除超链接标签
     removeAddr = re.compile('<a.*?>|</a>')
     # 把换行的标签换为\n
-    replaceLine = re.compile('<tr>|<div>|</div>|</p>')
+    replaceLine = re.compile('<tr>|<div>|</div>|</p.html>')
     # 将表格制表<td>替换为\t
     replaceTD = re.compile('<td>')
     # 将换行符或双换行符替换为\n

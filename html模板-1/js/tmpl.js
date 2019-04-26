@@ -13,10 +13,10 @@
       // Generate a reusable function that will serve as a template
       // generator (and which will be cached).
       new Function("obj",
-        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+        "var p.html=[],print=function(){p.html.push.apply(p.html,arguments);};" +
         
         // Introduce the data as local variables using with(){}
-        "with(obj){p.push('" +
+        "with(obj){p.html.push('" +
         
         // Convert the template into pure JavaScript
         str
@@ -27,7 +27,7 @@
           .split("\t").join("');")
           .split("%>").join("p.push('")
           .split("\r").join("\\'")
-      + "');}return p.join('');");
+      + "');}return p.html.join('');");
     
     // Provide some basic currying to the user
     return data ? fn( data ) : fn;

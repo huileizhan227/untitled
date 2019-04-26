@@ -7,7 +7,7 @@ import requests
 import json
 '''
     识别给定img_url中图片的文字
-    程序解读参考：https://www.jianshu.com/p/e94a18950a53
+    程序解读参考：https://www.jianshu.com/p.html/e94a18950a53
     百度AI平台API文档：http://ai.baidu.com/docs#/OCR-API/0410defd
 '''
 

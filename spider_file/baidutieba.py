@@ -20,11 +20,11 @@ class Tool:
     #删除超链接标签
     removeAddr = re.compile('<a.*?>|</a>')
     #把换行的标签换位\n
-    replaceLine = re.compile('<tr>|<div>|</div>|</p>')
+    replaceLine = re.compile('<tr>|<div>|</div>|</p.html>')
     #将表格指标<td>替换为\t
     replaceTD = re.compile('<td>')
     #把段落开头换为\n加空两格
-    replacePara = re.compile('<p.*?>')
+    replacePara = re.compile('<p.html.*?>')
     #将换行符或双换行符替换为\n
     replaceBR = re.compile('<br><br>|<br>')
     #将其余标签剔除
@@ -96,7 +96,7 @@ class BDTB:
             print self.tool.replace(item)
             floor += 1
 
-baseURL = 'http://tieba.baidu.com/p/3138733512'
+baseURL = 'http://tieba.baidu.com/p.html/3138733512'
 bdtb = BDTB(baseURL,1)
 page = bdtb.getPage(1)
 rr = bdtb.getTitle()

@@ -3036,7 +3036,7 @@
     if (unit.indexOf('%') === 0) {
       var element = void 0;
       switch (unit) {
-        case '%p':
+        case '%p.html':
           element = popperOffsets;
           break;
         case '%':
@@ -3397,7 +3397,7 @@
      * It accepts the following units:
      * - `px` or unitless, interpreted as pixels
      * - `%` or `%r`, percentage relative to the length of the reference element
-     * - `%p`, percentage relative to the length of the popper element
+     * - `%p.html`, percentage relative to the length of the popper element
      * - `vw`, CSS viewport width unit
      * - `vh`, CSS viewport height unit
      *

@@ -13,8 +13,6 @@ import ConfigParser
 import ssl
 import sys
 
-reload(sys)
-sys.setdefaultencoding('utf-8')
 ssl._create_default_https_context = ssl._create_unverified_context
 
 #读取配置
@@ -46,7 +44,7 @@ def deploy_test_env(username, password):
     #windows = driver.window_handles
     #driver.switch_to.window(windows[-1])   切换窗口
     #deploy_button = driver.find_element_by_id("page-wrapper")
-    deploy_button = driver.find_element_by_xpath('//div[@id="page-wrapper"]/div[2]/div[1]/div[3]/a/div[2]/p[2]')
+    deploy_button = driver.find_element_by_xpath('//div[@id="page-wrapper"]/div[2]/div[1]/div[3]/a/div[2]/p.html[2]')
     deploy_button.click()
     wait = WebDriverWait(driver, 10)
     wait.until(EC.presence_of_element_located((By.LINK_TEXT, "批量发布")))

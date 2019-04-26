@@ -261,7 +261,7 @@ function showClassDetail(cid, count) {
         tid = 'f' + tid0;
         tr = document.getElementById(tid);
         if (!tr) {
-            tid = 'p' + tid0;
+            tid = 'p.html' + tid0;
             tr = document.getElementById(tid);
         }
         id_list[i] = tid;
@@ -339,12 +339,12 @@ table       { font-size: 100%; }
     HEADING_TMPL = """<div class='heading'>
 <h1 style="font-family: Microsoft YaHei">%(title)s</h1>
 %(parameters)s
-<p class='description'>%(description)s</p>
+<p.html class='description'>%(description)s</p.html>
 </div>
 
 """ # variables: (title, parameters, description)
 
-    HEADING_ATTRIBUTE_TMPL = """<p class='attribute'><strong>%(name)s : </strong> %(value)s</p>
+    HEADING_ATTRIBUTE_TMPL = """<p.html class='attribute'><strong>%(name)s : </strong> %(value)s</p.html>
 """ # variables: (name, value)
 
 
@@ -354,12 +354,12 @@ table       { font-size: 100%; }
     #
     # 汉化,加美化效果 --Findyou
     REPORT_TMPL = """
-<p id='show_detail_line'>
+<p.html id='show_detail_line'>
 <a class="btn btn-primary" href='javascript:showCase(0)'>概要{ %(passrate)s }</a>
 <a class="btn btn-danger" href='javascript:showCase(1)'>失败{ %(fail)s }</a>
 <a class="btn btn-success" href='javascript:showCase(2)'>通过{ %(Pass)s }</a>
 <a class="btn btn-info" href='javascript:showCase(3)'>所有{ %(count)s }</a>
-</p>
+</p.html>
 <table id='result_table' class="table table-condensed table-bordered table-hover">
 <colgroup>
 <col align='left' />
@@ -702,7 +702,7 @@ class HTMLTestRunner(Template_mixin):
         # e.g. 'pt1.1', 'ft1.1', etc
         has_output = bool(o or e)
         # ID修改点为下划线,支持Bootstrap折叠展开特效 - Findyou
-        tid = (n == 0 and 'p' or 'f') + 't%s_%s' % (cid+1,tid+1)
+        tid = (n == 0 and 'p.html' or 'f') + 't%s_%s' % (cid+1,tid+1)
         name = t.id().split('.')[-1]
         doc = t.shortDescription() or ""
         desc = doc and ('%s: %s' % (name, doc)) or name

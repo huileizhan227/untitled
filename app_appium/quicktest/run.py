@@ -27,7 +27,7 @@ try:
             is_online = True
         elif k in ("-h", "--help"):
             print("use -o for online test")
-        elif k in ("-p", "--path"):
+        elif k in ("-p.html", "--path"):
             screen_folder = v
         elif k in ("-v", "--version"):
             version = v
