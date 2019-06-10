@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <a class="breadcrumb" href="{% url 'tool:check_url' %}" >超链接清洗检测</a>
+    <a class="breadcrumb" href="#" >检测报告</a>
+{% endblock %}
+
+{% block content-full %}
+    <iframe src="{{ report_url }}" class="full-iframe">
+    </iframe>
+{% endblock %}
+
+{% block script %}
+
+</script>
+{% endblock %}

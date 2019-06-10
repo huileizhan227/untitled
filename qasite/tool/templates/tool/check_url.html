@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'tool/style.css' %}">
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <a class="breadcrumb" href="#" >超链接清洗检测</a>
+{% endblock %}
+
+{% block content %}
+    <div id="loading" class="row">
+        <div class="loading-back"></div>
+        <div class="preloader-wrapper big active loading-containner">
+            <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+                <div class="circle"></div>
+            </div><div class="gap-patch">
+                <div class="circle"></div>
+            </div><div class="circle-clipper right">
+                <div class="circle"></div>
+            </div>
+            </div>
+        </div>
+        <div class=" col s6 offset-s3">
+        <div id="loading-full" class="progress">
+            <div id="loading-percent" class="determinate" style="width: 1%"></div>
+        </div>
+        </div>
+    </div>
+    <div style="padding: 3rem">
+    {% if site_list %}
+        <p>选择要检测的网站，点击开始测试</p>
+        <form id="form-check" action="#">
+            <div class="row">
+                {% for site in site_list %}
+                    <div class="col s5">
+                        <label>
+                            <input name="site-url" type="checkbox" value="{{site}}" />
+                            <span>{{site}}</span>
+                        </label>
+                    </div>
+                {% endfor %}
+                <div class="col s12">
+                    <label>
+                        <input id="check-all-url" type="checkbox" />
+                        <span>全选</span>
+                    </label>
+                </div>
+                <div class="range-field col s5">
+                    <label>
+                        <span>请求失败后的重试次数：</span><span id="retry-show"></span>
+                        <input type="range" id="retry" min="1" max="10" value="5"/>
+                    </label>
+                </div>
+                <div class="range-field col s5">
+                    <label>
+                        <span>每个网站检测几篇文章：</span><span id="size-per-request-show"></span>
+                        <input type="range" id="size-per-request" min="5" max="20" value="10" />
+                    </label>
+                </div>
+                <div class="col s12">
+                    <a id="submit" class="waves-effect waves-light btn">开始测试</a>
+                </div>
+            </div>
+        </form>
+        <div class="section col s12 right-align">
+            <a class="" href="{% url 'tool:check_url_report' %}" >查看最新报告</a>
+        </div>
+    {% else %}
+        <p>no sites found. check backend.</p>
+    {% endif %}
+    </div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        
+        var check_url = function(sites, retry, article_per_site){
+            $.ajax({
+                method: "POST",
+                url: "/tool/api/do-check-url/",
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({ 
+                    sites: sites,
+                    retry: retry,
+                    article_per_site: article_per_site
+                })
+            }).done(function( data, textStatus, jqXHR ) {
+                $("#loading").show();
+                M.toast({html: "开始测试，测试过程中可关闭网页"});
+                check_url_percent();
+            });
+        };
+
+        var check_url_percent = function(){
+            $.ajax({
+                method: "POST",
+                url: "/tool/api/check-url-percent/",
+            }).done(function(data, textStatus, jqXHR){
+                //M.toast({html: textStatus});
+                if(data.is_checking){
+                    percent = data.check_step * 100 + "%"
+                    full_width = $("#loading-full").width()
+                    now_width = $("#loading-percent").width()
+                    to_width = Math.floor(full_width * data.check_step)
+                    console.log("full_width:" + full_width)
+                    console.log("now_width:" + now_width)
+                    console.log("to_width:" + to_width)
+                    if(to_width <= now_width){
+                        var ninety_width = Math.floor(0.9 * full_width)
+                        if(now_width < ninety_width){
+                            to_width = now_width + 1
+                        }else{
+                            to_width = ninety_width
+                        }
+                    }
+
+                    $("#loading-percent").width(to_width)
+
+                    setTimeout(check_url_percent, 1000);
+                }else{
+                    $("#loading").hide()
+                }
+//                console.log(data);
+  //              console.log(jqXHR);
+                
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                M.toast(textStatus);
+            });
+        };
+        
+        $("#check-all-url").click(function(){
+            if(this.checked){
+                $("input[name='site-url']").prop("checked", true);
+            }else{
+                $("input[name='site-url']").prop("checked", false);
+            }
+        });
+
+        $("#submit").click(function(){
+            var site_list = []
+            $("input[name='site-url']:checked").each(function(index){
+                //M.toast({html: $(this).val()});
+                site_list.push($(this).val());
+            });
+
+            if(0 == site_list.length){
+                M.toast({html: "请选择要测试的网站"});
+                return;
+            }
+
+            var retry = $("#retry").val();
+            var size_per_request = $("#size-per-request").val();
+
+            check_url(site_list, retry, size_per_request);
+        });
+
+        $("#retry-show").text($("#retry").val());
+        $("#retry").change(function(){
+            $("#retry-show").text($(this).val());
+        });
+
+        $("#size-per-request-show").text($("#size-per-request").val());
+        $("#size-per-request").change(function(){
+            $("#size-per-request-show").text($(this).val());
+        });
+
+        check_url_percent();
+    });
+</script>
+{% endblock %}

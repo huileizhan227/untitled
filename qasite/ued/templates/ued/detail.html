@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'ued/style.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <a class="breadcrumb" href="{% url 'ued:index' %}" >ued docs</a>
+    <a class="breadcrumb" href="{% url 'ued:platform' platform_name %}" >{{ platform_name }}</a>
+    <a class="breadcrumb" href="#" >{{ version }}</a>
+{% endblock %}
+
+{% block content-full %}
+    <a id="btn_fold_nav" class="waves-effect waves-light btn blue lighten-1" style="position: absolute; right: 0;">
+        <i class="material-icons right">arrow_upward</i>
+        折叠
+    </a>
+    {% if doc_url %}
+        <iframe src='{{ doc_url }}' class='ued_doc' ></iframe>
+    {% endif %}
+{% endblock %}
+
+{% block script %}
+<script>
+    $(document).ready(function(){
+        $("#btn_fold_nav").click(function(){
+            if($("#nav").is(':visible')){
+                $("#nav").hide();
+            }else{
+                $("#nav").show();
+            }
+        });
+    });
+</script>
+{% endblock %}

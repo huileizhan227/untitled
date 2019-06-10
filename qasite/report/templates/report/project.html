@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'report/style.css' %}">
+{% endblock %}
+
+{% block breadcrumb %}
+    <a class="breadcrumb" href="{% url 'report:index' %}" >projects</a>
+    <a class="breadcrumb" href="#" >{{ project_name }}</a>
+{% endblock %}
+
+{% block content %}
+    {% if project_name %}
+        <div class="collection">
+            {% for report in reports %}
+                <a class="collection-item" href="{% url 'report:detail' report.project_name report.build_id %}"> {{ report.build_id }} </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>no projects</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block head %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <a class="breadcrumb" href="{% url 'ued:index' %}" >ued docs</a>
+    <a class="breadcrumb" href="#" >{{ platform_name }}</a>
+{% endblock %}
+
+{% block content %}
+    {% if platform_name %}
+        <div class="collection">
+            {% for version in version_list %}
+                <a class="collection-item" href="{% url 'ued:detail' platform_name version %}"> {{ version }} </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>no docs</p>
+    {% endif %}
+{% endblock %}

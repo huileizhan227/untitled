@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {% load static %}
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+    
+    <link href="{% static 'css/google-icons.css' %}" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="{% static 'css/materialize.min.css' %}" media="screen,projection" />
+    <link href="{% static 'css/style.css'%}" rel="stylesheet">
+    {% block head %} {% endblock %}
+    <title>{% block title %}测试平台{% endblock %}</title>
+</head>
+
+<body>
+
+<div class="flex-outer">
+    <nav id="nav" class="nav-extended blue lighten-1">
+
+        <div class="nav-wrapper row" id="nav-wrapper-top">
+            <!-- <div class="col s1"></div> -->
+            <div class="col">
+                <h5> <a href="#" class="" style="margin-left: 1rem;">测试平台</a></h5>
+            </div>
+            <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
+            <div class="col">
+                {% comment %} <a href="#" class="breadcrumb"> 1 </a> {% endcomment %}
+                {% block breadcrumb %} {% endblock %}
+            </div>
+
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="/report/">测试报告</a></li>
+                <li><a href="/ued/">交互稿</a></li>
+                <li><a href="#">Mock</a></li>
+                <li><a href="#" class="dropdown-trigger" data-target="dropdown-tools">工具集<i class="material-icons right">arrow_drop_down</i></a></li>
+            </ul>
+        </div>
+    </nav>
+    <ul id="dropdown-tools" class="dropdown-content">
+        <li><a href="/tool/checkurl/">超链接检测</a></li>
+    </ul>
+    <!-- <div class="col s12 blue-grey lighten-2">
+        <a href="#!" class="breadcrumb">First</a>
+        <a href="#!" class="breadcrumb">Second</a>
+        <a href="#!" class="breadcrumb">Third</a>
+    </div> -->
+
+    <div class="container z-depth-4">
+            {% block content %}{% endblock %}
+    </div>
+    <div class="flex-remainning">
+        {% block content-full %}{% endblock %}
+    </div>
+</div>
+    <script type="text/javascript" src="{% static 'js/materialize.min.js' %}"></script>
+    <script>M.AutoInit();</script>
+    {% block script %}{% endblock %}
+</body>
+
+</html>
