@@ -1,0 +1,9 @@
+.vscode/
+/apks/
+reports/
+
+# python
+__pycache__/
+.pytest_cache/
+
+/test.py
