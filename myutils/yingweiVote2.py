@@ -7,6 +7,7 @@ import time
 import re
 import random
 import _thread
+import threading
 
 # post表单网址
 url = "http://basf1.xiqidesign.com/basf/Yw/dianzan.html"
@@ -45,23 +46,26 @@ def voteForMyBro(ip):
     print(ip)
     try:
         r = requests.post(url=url, data=params,
-                          headers=headers, proxies=proxies, timeout=5)
+                          headers=headers, proxies=proxies, timeout=10)
         if (r.json()['status'] == 1):
             global count
             count += 1
             print('Congratulations!!! This ip has voted!!:', ip)
             print("成功投票%d次！" % (count))
-    except:
+    except requests.exceptions.ConnectionError as e:
         print('There is something wrong with the ip:',ip)
+        # print('Exception:{}:{}'.format(e,ip))
         return
 
     return
 
 # 计数器
 # all_url = WriteIPadress()
-while 1:
+while True:
     all_url = WriteIPadress()
     for ip in all_url:
+        # th = threading.Thread(target=voteForMyBro,args=(ip,))
+        # th.start()
         time.sleep(0.3)
         _thread.start_new_thread(voteForMyBro, (ip,))
-        # voteForMyBro(ip)
+
