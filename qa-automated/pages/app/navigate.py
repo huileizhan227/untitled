@@ -10,7 +10,9 @@ from .offline_page import OfflinePage
 
 def to_home_page(driver):
     guid_page = GuidPage(driver)
-    guid_page.skip_btn.click()
+    skip_btn = guid_page.skip_btn
+    if skip_btn:
+        skip_btn.click()
 
 def to_video_list_page(driver):
     to_home_page(driver)

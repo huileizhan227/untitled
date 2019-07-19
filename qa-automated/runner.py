@@ -1,71 +1,71 @@
-import unittest
-import time
-import sys
-import getopt
 import os
-import pytest
+import time
 import qasite
+import pytest
+import config
+import devicectl
+import serverctl
 
-from performance import Report
-from helpers import driver_helper
-from config import config_main as cfg
+from multiprocessing import Pool
+from performance import Report as Perf
 
-def main(args):
-
-    # deal with args
-    help_text = (
-        'Usage: python3 runner.py [OPTION]\n'
-        'Run app automation test.\n'
-        'Options:\n'
-        '  -h, --help\t' 'show this message\n'
-        '  -a, --apk=APK\t' 'the package to test\n'
-        '  -l, --logpath=LOGPATH\t' 'the path to save reports\n'
-    )
-    apk_path = None
-    log_path = None
-
-    optlist, args = getopt.getopt(args, 'ha:l:', ['help', 'apk=', 'logpath='])
-    for k,v in optlist:
-        if k == '-h' or k == '--help':
-            print(help_text)
-            sys.exit(0)
-        elif k == '-a' or k == '--apk':
-            apk_path = v
-        elif k == '-l' or k == '--logpath':
-            log_path = v
-    run_test(apk_path, log_path)
-
-def run_test(apk_path=None, log_path=None, project_name=None, build_id=None):
-    """run test, generate report, and upload report file(opt)
-    
-    if project_name is None or build_id is None, will not upload report file.
-    """
-    if apk_path:
-        driver_helper.apk_path = apk_path
-    if not log_path:
-        log_path = time.strftime('%Y-%m-%d.%H%M%S')
-    log_path_from_base = os.path.join('reports', log_path)
-    if os.path.exists(log_path_from_base):
-        raise Exception('log path exists')
+def run(project_name=None, build_id=None):
+    # before
+    if (not project_name) or (not build_id):
+        log_folder = os.path.join(config.LOG_FOLDER, time.strftime('%Y%m%d.%H%M%S'))
     else:
-        os.makedirs(log_path_from_base)
+        log_folder = os.path.join(config.LOG_FOLDER, project_name, str(build_id))
+    devicectl.uninstall_apk()
+    devicectl.uninstall_ua2()
 
-    perf_data_file = os.path.join(log_path_from_base, 'performance.csv')
-    ui_report_file = os.path.join(log_path_from_base, 'report.html')
+    # run server
+    serverctl.run_servers()
+    
+    # run cases
+    devices = config.devices
+    # case_process_list = []
+    args_list = []
+    for device in devices:
+        report_folder = os.path.join(log_folder, device['name'])
+        if not os.path.exists(report_folder):
+            os.makedirs(report_folder)
+        perf_log = os.path.join(report_folder, 'performance.csv')
+        perf_report = os.path.join(report_folder, 'performance.html')
+        ui_report = os.path.join(report_folder, 'report.html')
+        device['perf_report'] = perf_report
+        device['ui_report'] = ui_report
+        args=(perf_log, perf_report, ui_report, device['id'])
+        args_list.append(args)
 
-    # performance report init
-    Report.register(cfg.PKG_NAME, file=perf_data_file)
+    pool = Pool(len(args_list))
+    pool.starmap(run_cases, args_list)
+    pool.close()
+    pool.join()
 
-    # run automated testing
-    pytest.main(['cases/app', '--html={}'.format(ui_report_file)])
-
-    # performance report
-    perf_report_file = Report.render()
+    # stop server
+    print('run cases over, killing servers...')
+    serverctl.stop_servers()
 
     # upload report
-    if project_name != None and build_id != None:
-        qasite.upload_report(ui_report_file, 0, project_name, build_id)
-        qasite.upload_report(perf_report_file, 1, project_name, build_id)
+    # todo 先上传一个测试报告，多报告需qasite支持
+    if (project_name is not None) and (build_id is not None):
+        print('uploading aotomated testing report...')
+        if not qasite.upload_report(devices[0]['ui_report'], 0, project_name, build_id):
+            print('upload failed')
 
-if __name__ == "__main__":
-    main(sys.argv[1:])
+        print('uploading performance testing report...')
+        if not qasite.upload_report(devices[0]['perf_report'], 1, project_name, build_id):
+            print('upload failed')
+    
+    print('test finished.')
+
+def run_cases(perf_log, perf_report, ui_report, device_id):
+    # runpytest
+    pytest.main([
+        'cases/app',
+        '--html={}'.format(ui_report),
+        '--self-contained-html',
+        '--device-id={}'.format(device_id),
+        '--perf-log={}'.format(perf_log),
+        '--perf-report={}'.format(perf_report)
+    ])

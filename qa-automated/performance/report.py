@@ -24,7 +24,7 @@ class Report(object):
     LOG_HEADERS = [HEADER_CPU, HEADER_NATIVE_HEAP, HEADER_JAVA_HEAP, HEADER_TOTAL_MEM, HEADER_FPS, HEADER_CONTEXT]
     LOG_KEYS = ['cpu', 'native_heap', 'java_heap', 'total_mem', 'fps', 'context']
     @classmethod
-    def register(cls, package_name, file=None, stream=None):
+    def register(cls, package_name, file=None, stream=None, report_file=None):
         """register performance report
 
         args:
@@ -44,7 +44,10 @@ class Report(object):
         cls.package_name = package_name
         cls.file = file
         folder = os.path.dirname(cls.file)
-        cls.html_report_file = os.path.join(folder, 'performance.html')
+        if report_file:
+            cls.html_report_file = report_file
+        else:
+            cls.html_report_file = os.path.join(folder, 'performance.html')
 
     @classmethod
     def write(cls, **kwargs):

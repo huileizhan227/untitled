@@ -1,24 +1,36 @@
-import pytest
 import types
+import pytest
+import driverctl
 
-from helpers import driver_helper
 from pages.app import navigate
 from performance import Report
-from config.config_main import PKG_NAME
+from performance import monitor_remote
+from config import PKG_NAME
+
+def pytest_addoption(parser):
+    parser.addoption('--device-id', action='store', default=None)
+    parser.addoption('--perf-log', action='store')
+    parser.addoption('--perf-report', action='store')
 
 @pytest.fixture(scope='session')
-def performance():
-    if not Report.package_name:
-        # if report is not registered, register it with defualt value.
-        Report.register(PKG_NAME, file='reports/default_perf_report.csv')
+def performance(request):
+    perf_log = request.config.getoption('--perf-log')
+    perf_reprot = request.config.getoption('--perf-report')
+    Report.register(PKG_NAME, perf_log, report_file=perf_reprot)
+
     def _perf(_driver, context):
         Report.check(_driver, context)
-    return _perf
+    yield _perf
+
+    # teardown
+    Report.render()
 
 @pytest.fixture(scope='function')
-def driver(performance):
-    _driver = driver_helper.get_driver()
+def driver(performance, request):
+    device_id = request.config.getoption('--device-id')
+    _driver = driverctl.get_driver(device_id)
 
+    _driver.uid = monitor_remote.get_user_id(_driver, Report.package_name)
     # add performance method to driver.
     # usage: driver.performance('some note')
     _driver.performance = types.MethodType(performance, _driver)

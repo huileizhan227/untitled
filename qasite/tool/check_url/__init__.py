@@ -79,7 +79,7 @@ def check_url(url_log_file, sites=[], size_per_request=10, retry=10):
             urls, status_codes = check_url_in_artical(article_detail)
             with open(url_log_file, 'ab') as file:
                 for i, url in enumerate(urls):
-                    file.write('{status_code},{site},http://tools.ms.sportybet.com/detail/{id},{url}\n'.format(
+                    file.write('{status_code},{site},https://test.management.more.buzz/tools/news/detail/{id},{url}\n'.format(
                         site=article['site'],
                         id=article_id,
                         url=urllib.parse.quote(url, safe=':/'),

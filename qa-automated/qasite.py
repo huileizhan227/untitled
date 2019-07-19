@@ -2,7 +2,7 @@ import os
 import time
 import requests
 
-from config.config_main import UPLOAD_URL
+from config import UPLOAD_URL
 
 def upload_report(file, report_type, project_name, build_id):
     """upload report
@@ -24,8 +24,8 @@ def upload_report(file, report_type, project_name, build_id):
             'project_name': project_name,
             'build_id': build_id
         }
-        files = {'file': file}
-        
+        files = {'file': open(file, 'rb')}
+
         response = requests.post(UPLOAD_URL, data=data, files=files)
         status_code = response.status_code
         if status_code != 200:

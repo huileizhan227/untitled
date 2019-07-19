@@ -21,25 +21,34 @@
     <nav id="nav" class="nav-extended blue lighten-1">
 
         <div class="nav-wrapper row" id="nav-wrapper-top">
+            <a href="#" data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
             <!-- <div class="col s1"></div> -->
             <div class="col">
-                <h5> <a href="#" class="" style="margin-left: 1rem;">测试平台</a></h5>
+                <h5> <a href="/" class="" style="margin-left: 1rem;">测试平台</a></h5>
             </div>
             <!-- <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a> -->
             <div class="col">
                 {% comment %} <a href="#" class="breadcrumb"> 1 </a> {% endcomment %}
                 {% block breadcrumb %} {% endblock %}
             </div>
-
             <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="/report/">测试报告</a></li>
                 <li><a href="/ued/">交互稿</a></li>
                 <li><a href="#">Mock</a></li>
-                <li><a href="#" class="dropdown-trigger" data-target="dropdown-tools">工具集<i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="#" class="dropdown-trigger" data-target="dropdown-tools">工具 ...<i class="material-icons right">arrow_drop_down</i></a></li>
             </ul>
         </div>
     </nav>
     <ul id="dropdown-tools" class="dropdown-content">
+        <li><a href="/tool/checkurl/">超链接检测</a></li>
+    </ul>
+    <ul id="sidenav" class="sidenav">
+        <li><a href="/report/">测试报告</a></li>
+        <li><a href="/ued/">交互稿</a></li>
+        <li><a href="#">Mock</a></li>
+        <li><a href="#" class="dropdown-trigger" data-target="dropdown-tools-side">工具<i class="material-icons right">arrow_drop_down</i></a></li>
+    </ul>
+    <ul id="dropdown-tools-side" class="dropdown-content">
         <li><a href="/tool/checkurl/">超链接检测</a></li>
     </ul>
     <!-- <div class="col s12 blue-grey lighten-2">

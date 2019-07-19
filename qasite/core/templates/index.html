@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content-full %}
+<div class="row">
+    <div class="col s1"></div>
+    <div class="col s10">
+        <div class="row">
+            <div class="col s4">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">测试报告</span>
+                        <p>包括自动化测试报告、性能测试报告和代码覆盖率报告。</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="/report/"><i class="material-icons right">arrow_forward</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">交互稿</span>
+                        <p>交互稿展示，自动更新。</p>
+                        <p>*由于owncloud废弃，自动更新功能暂时废弃。</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="/ued/"><i class="material-icons right">arrow_forward</i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="col s4">
+                <div class="card blue-grey darken-1">
+                    <div class="card-content white-text">
+                        <span class="card-title">工具-超链接检测</span>
+                        <p>对于抓取和清洗过后的文章，检测其正文中的超链接是否有效。</p>
+                    </div>
+                    <div class="card-action">
+                        <a href="/tool/checkurl/"><i class="material-icons right">arrow_forward</i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col s1"></div>
+</div>
+{% endblock %}

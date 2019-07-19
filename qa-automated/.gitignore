@@ -1,9 +1,11 @@
 .vscode/
-/apks/
+/data/.jenkins_build_id
+/data/app.apk
 reports/
+local_config.py
+/test.py
+/run.bat
 
 # python
 __pycache__/
 .pytest_cache/
-
-/test.py

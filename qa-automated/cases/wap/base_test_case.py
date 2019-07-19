@@ -1,10 +1,9 @@
 import unittest
-
-from helpers import driver_helper
+import driverctl
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):
-        self.driver = driver_helper.get_android_chrome_driver()
+        self.driver = driverctl.get_android_chrome_driver()
 
     def tearDown(self):
         self.driver.quit()

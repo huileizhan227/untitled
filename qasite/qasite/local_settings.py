@@ -2,9 +2,9 @@ import os
 
 DEBUG = True
 
-STATIC_ROOT = '/home/project/qasite.s.news/static'
+STATIC_ROOT = 'C:/Python27/untitled2/qasite/static'
 
-MEDIA_ROOT = '/home/project/qasite.s.news/media'
+MEDIA_ROOT = 'C:/Python27/untitled2/qasite/media'
 
 ALLOWED_HOSTS = '*'
 
