@@ -4,7 +4,7 @@
 #! @Auther : Yu Kunjiang
 #! @File : generate_channels_json_files.py
 
-# 从app的allchannles接口获取频道列表信息，并封装成json格式文件存储
+# 从app的allchannles接口获取频道列表信息，并写入.json格式文件存储
 
 import json
 import requests
@@ -27,16 +27,17 @@ oper_ids = {
     'mw_en': 15,
     'sl_en': 16,
     'gm_en': 17,
+    'sa_ar': 18,  # 已配（重要）
+    'ci_fr': 19,  # 已配（重要）
+    'dz_ar': 21,  # 已配（重要）
+    'tz_sw': 22,  # 已配（重要）
+    'sn_fr': 23,  # 已配（重要）
+    'ma_ar': 25,  # 已配（重要）
+    'ma_fr': 26,  # 已配（重要）
+    'ae_ar': 37,  # 已配
     # 'ke_sw': 4,
-    # 'sa_ar': 18,
-    # 'ci_fr': 19,
     # 'cm_fr': 20,
-    # 'dz_ar': 21,
-    # 'tz_sw': 22,
-    # 'sn_fr': 23,
     # 'gn_fr': 24,
-    # 'ma_ar': 25,
-    # 'ma_fr': 26,
     # 'cd_fr': 27,
     # 'cd_sw': 28,
     # 'ug_sw': 29,
@@ -47,7 +48,6 @@ oper_ids = {
     # 'tn_fr': 34,
     # 'ml_fr': 35,
     # 'ne_fr': 36,
-    # 'ae_ar': 37,
     # 'rw_fr': 38,
     # 'rw_sw': 39,
     # 'bi_fr': 40,
@@ -57,12 +57,12 @@ oper_ids = {
     # 'sd_ar': 44,
     # 'so_ar': 45,
     # 'mr_ar': 46,
-    # 'dj_ar': 47,
+    # 'dj_ar': 47
 }
 # 生成json文件存放位置
 file_path = r'C:\Users\tn_kunjiang.yu\Desktop'
 # env
-env = 'test'  # or 'test'
+env = 'test'  # 'online' or 'test'
 
 def generate_json(country_lang, env='online'):
     '''
@@ -126,6 +126,7 @@ if __name__ == '__main__':
     for country_lang in oper_ids:
         print("Country-Lang:",country_lang)
         file_data = generate_json(country_lang, env)
-        write_to_file(file_path, country_lang, file_data, env)
+        if file_data['data']:
+            write_to_file(file_path, country_lang, file_data, env)
     print("-"*30)
     print(env, "All Done!")
