@@ -107,7 +107,11 @@ def get_team_info(ids, sub_status='Played', start_time=None):
 
 
 if __name__ == '__main__':
-    match_ids = ['test_20190909204329MAT7100000036','test_20190909204317MAT7100000008','test_20190903201434MAT5500000010','test_20190822203031MAT5800000364'] # 1-2阿语，3-4英语
+    match_ids = [
+	'test_20190909204329MAT7100000036','test_20190909204317MAT7100000008',	# 阿语
+	'test_20190903201434MAT5500000010','test_20190822203031MAT5800000364',	# 英语
+	'test_20190918020415MAT9100000369','test_20190918020412MAT9100000268',	# 法语	
+	]
     #get_team_info(match_ids, 'Playing')
     #get_team_info(match_ids, 'Played')
     #get_team_info(match_ids, 'Fixture')
