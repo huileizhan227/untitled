@@ -77,7 +77,17 @@ def upload(request):
     ued_version_path = os.path.join(UED_CONTENT_PATH, platform, version)
     if os.path.exists(ued_version_path):
         shutil.rmtree(ued_version_path)
-    unzip.unzip_file(zip_path, ued_version_path)
+    unzip.unzip_file_with_encoding(zip_path, ued_version_path)
+    ued_folder = ''
+    for folder, sub_folders, sub_files in os.walk(ued_version_path):
+        for sub_file in sub_files:
+            if sub_file == 'index.html':
+                ued_folder = folder
+    if ued_folder and ued_folder != ued_version_path:
+        for name_ in os.listdir(ued_folder):
+            path_ = os.path.join(ued_folder, name_)
+            shutil.move(path_, ued_version_path)
+
     shutil.rmtree(UED_TMP_PATH)
     return HttpResponse('upload success')
 

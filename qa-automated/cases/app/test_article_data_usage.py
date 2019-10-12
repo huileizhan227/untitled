@@ -6,7 +6,8 @@ from pages.app.article_page import ArticlePage
 from pages.app import navigate
 from performance.monitor_remote import net_info
 
-pytestmark = pytest.mark.skip(reason='just for net test')
+pytestmark = pytest.mark.skipif('not config.getvalue("test")',
+                                reason='just for test')
 
 def test_article_data_usage(driver):
     home = HomePage(driver)

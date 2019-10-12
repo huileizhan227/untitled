@@ -1,4 +1,5 @@
 from .config import *
+from . import country
 
 try:
     from .local_config import *

@@ -16,8 +16,8 @@ class Mysql:
         try:
             self.db = MySQLdb.connect('localhost','root','1234','test')
             self.cur = self.db.cursor()
-        except MySQLdb.Error,e:
-            print self.getCurrentTime(),"连接数据库错误，原因%d:%s" %(e.args[0],e.args[1])
+        except MySQLdb.Error as e:
+            print(self.getCurrentTime(),"连接数据库错误，原因%d:%s" %(e.args[0],e.args[1]))
 
     #插入数据
     def insertData(self,table,my_dict):
@@ -34,14 +34,14 @@ class Mysql:
                     return insert_id
                 else:
                     return 0
-            except MySQLdb.Error,e:
+            except MySQLdb.Error as e:
                 self.db.rollback()
                 if "key 'PRIMARY'" in e.args[1]:
-                    print self.getCurrentTime(), "数据已存在，未插入数据"
+                    print(self.getCurrentTime(), "数据已存在，未插入数据")
                 else:
-                    print self.getCurrentTime(), "插入数据失败，原因 %d: %s" % (e.args[0], e.args[1])
-        except MySQLdb.Error,e:
-            print self.getCurrentTime(), "数据库错误，原因%d: %s" % (e.args[0], e.args[1])
+                    print(self.getCurrentTime(), "插入数据失败，原因 %d: %s" % (e.args[0], e.args[1]))
+        except MySQLdb.Error as e:
+            print(self.getCurrentTime(), "数据库错误，原因%d: %s" % (e.args[0], e.args[1]))
 
 
 

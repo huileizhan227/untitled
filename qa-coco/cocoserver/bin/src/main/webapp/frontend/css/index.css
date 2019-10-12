@@ -1,0 +1,118 @@
+html, body {
+display: block;
+background: #0ac9f6;
+font-family: "Comic Sans MS";
+}
+
+.title{
+text-align: center;
+margin-top: 20px;
+margin-bottom: 0px;
+color: #ffffff;
+font-size: 4rem;
+}
+
+.sub_title{
+text-align: center;
+margin-top: 10px;
+color: #ffffff;
+}
+
+.item_author{
+width: 100%;
+font-size: 2rem;
+}
+
+.item_content{
+width: 100%;
+font-size: 1.5rem;
+}
+
+.item_time{
+width: 100%;
+font-size: 1.2rem;
+}
+
+.post_label{
+font-size: 1.5rem;
+}
+
+.post_input{
+font-size: 1.2rem;
+}
+
+.post_hit{
+font-size: 1rem;
+}
+
+.post_img_input{
+border: 0.2rem solid #0ac9f6;
+border-radius: 0.5rem;
+max-width: 100%;
+}
+
+.custom_block{
+background: #0ac9f6;
+border-width: 0.4rem;
+border-color: #ffffff;
+margin-bottom:20px;
+}
+
+.post_btn{
+width: 50%;
+margin-bottom: 1rem;
+margin-top: 1rem;
+}
+
+@media (max-width: 667px) and (orientation : portrait) {
+.title{
+font-size: 2rem;
+}
+
+.sub_title{
+font-size: 0.9rem;
+}
+
+.item_author{
+font-size: 1.2rem;
+}
+
+.item_content{
+font-size: 0.8rem;
+}
+
+.item_time{
+font-size: 0.5rem;
+}
+
+
+.post_label{
+font-size: 0.8rem;
+}
+
+.post_input{
+font-size: 0.8rem;
+}
+
+.post_hit{
+font-size: 0.6rem;
+}
+
+.post_btn{
+width: 90%;
+margin-bottom: 0.3rem;
+margin-top: 0.3rem;
+}
+
+.form-group{
+margin-bottom: 0;
+}
+
+#post_card_block.card-block{
+padding:0.2rem;
+}
+
+}
+
+
+}

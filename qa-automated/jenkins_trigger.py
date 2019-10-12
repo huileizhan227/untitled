@@ -3,16 +3,20 @@ import sys
 import time
 import runner
 import getopt
+import config
 import requests
 
 from jenkins import JenkinsRss
-from config import JENKINS_RSS_URL as rss_url
 from config import ANDROID_APP_PATH as apk_file
-from config import JENKINS_ID_FILE as jenkins_id_file
 
 def main(do_force=False, do_loop=False):
-    global rss_url, apk_file, jenkins_id_file
+    global apk_file
+    for jenkins_rss_cfg in config.JENKINS_RSS_LIST:
+        jenkins_id_file = jenkins_rss_cfg['id_file']
+        rss_url = jenkins_rss_cfg['url']
+        check_and_run(rss_url, jenkins_id_file, do_force, do_loop)
 
+def check_and_run(rss_url, jenkins_id_file, do_force=False, do_loop=False):
     if (not os.path.exists(jenkins_id_file)) or do_force:
         with open(jenkins_id_file, 'w') as file:
             file.write('0')
@@ -66,7 +70,6 @@ def main(do_force=False, do_loop=False):
             time.sleep(60)
         else:
             break
-
 
 if __name__ == "__main__":
     print('[{}] ------jenkins_trigger start-------------'.format(time.ctime()))

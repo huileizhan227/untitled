@@ -1,6 +1,7 @@
 .vscode/
 /data/.jenkins_build_id
 /data/app.apk
+/data/jenkins*
 reports/
 local_config.py
 /test.py

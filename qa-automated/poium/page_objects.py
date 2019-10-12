@@ -1,4 +1,5 @@
-from time import sleep
+import time
+
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.select import Select
 from selenium.webdriver.common.action_chains import ActionChains
@@ -32,16 +33,14 @@ LOCATOR_LIST = {
 
 
 class PageObject:
-    """
-    Page Object pattern.
-    """
+    """Page Object pattern."""
 
     def __init__(self, driver, url=None):
         """
         :param driver: `selenium.webdriver.WebDriver` Selenium webdriver instance
         :param url: `str`
-        Root URI to base any calls to the ``PageObject.get`` method. If not defined
-        in the constructor it will try and look it from the webdriver object.
+            Root URI to base any calls to the ``PageObject.get`` method. If not defined
+            in the constructor it will try and look it from the webdriver object.
         """
         self.driver = driver
         self.root_uri = url if url else getattr(self.driver, 'url', None)
@@ -52,12 +51,11 @@ class PageObject:
         """
         root_uri = self.root_uri or ''
         self.driver.get(root_uri + uri)
-        self.driver.implicitly_wait(5)
 
 
 class PageElement(object):
-    """
-    Page Element descriptor.
+    """Page Element descriptor.
+
     :param css:    `str`
         Use this css locator
     :param id_:    `str`
@@ -74,24 +72,29 @@ class PageElement(object):
         Use this tag name locator
     :param class_name:    `str`
         Use this class locator
-    :param context: `str`
-        This element will be found with context
+    :param context: `str` or `bool`
+        This element will be found with context. context can be a element name
+        or bool. If context is `True`, this attribute will be callable.
+
     Page Elements are used to access elements on a page. The are constructed
     using this factory method to specify the locator for the element.
-        >> from page_objects import PageObject, PageElement
-        >> class MyPage(PageObject):
+        >>> from page_objects import PageObject, PageElement
+        >>> class MyPage(PageObject):
                 elem1 = PageElement(css='div.myclass')
                 elem2 = PageElement(id_='foo')
                 elem_with_context_1 = PageElement(name='bar', context='elem1')
                 elem_with_context_2 = PageElement(name='bar', context=True)
-        >> page = MyPage()
-        >> elem = page.elem2
-        >> page.elem_with_context_2(elem2)
+        >>> page = MyPage(driver)
+        >>> test_elem1 = page.elem1
+        >>> test_elem2 = page.elem_with_context_1
+        # if context is True, then this elem must be called with a parameter.
+        >>> test_elem3 = page.elem_with_context_2(elem2)
+
     Page Elements act as property descriptors for their Page Object, you can get
     and set them as normal attributes.
     """
-    def __init__(self, context=None, timeout=10, describe=None, **kwargs):
-        self.time_out = timeout
+    def __init__(self, context=None, timeout=10, **kwargs):
+        self.timeout = timeout
         if not kwargs:
             raise ValueError("Please specify a locator")
         if len(kwargs) > 1:
@@ -100,7 +103,11 @@ class PageElement(object):
         try:
             self.locator = (LOCATOR_LIST[k], v)
         except KeyError:
-            raise KeyError("Please use a locator：'id_'、'name'、'class_name'、'css'、'xpath'、'link_text'、'partial_link_text'.")
+            raise ValueError(
+                "locator name error: {}. Available locator name: {}".format(
+                    k, list(LOCATOR_LIST)
+                )
+            )
         self.context = context
 
     def get_element(self, context):
@@ -109,28 +116,31 @@ class PageElement(object):
         except NoSuchElementException:
             return None
 
-    def find(self, context):
-        for i in range(self.time_out):
-            if self.get_element(context) is not None:
-                return self.get_element(context)
+    def find(self, context, delay=0):
+        time_start = time.time()
+        while True:
+            el = self.get_element(context)
+            if el is not None:
+                time.sleep(delay)
+                return el
             else:
-                sleep(1)
-        else:
-            return None
+                if time.time() - time_start > self.timeout:
+                    return None
+                time.sleep(1)
+        return None
 
     def __get__(self, instance, owner):
         if not instance:
             return None
-
-
+        delay = getattr(instance, 'delay', 0)
         if type(self.context) is str:
             context = instance.__getattribute__(self.context)
         elif self.context:
-            return lambda ctx: self.find(ctx)
+            return lambda ctx: self.find(ctx, delay)
         else:
             context = instance.driver
 
-        return self.find(context)
+        return self.find(context, delay)
 
     def __set__(self, instance, value):
         elem = self.__get__(instance, instance.__class__)
@@ -142,22 +152,24 @@ class PageElement(object):
 
 
 class PageElements(PageElement):
-    """
-    Like `PageElement` but returns multiple results.
-    >> from page_objects import PageObject, PageElements
-    >> class MyPage(PageObject):
+    """Like `PageElement` but returns multiple results.
+    
+    >>> from page_objects import PageObject, PageElements
+    >>> class MyPage(PageObject):
             all_table_rows = PageElements(tag='tr')
             elem2 = PageElement(id_='foo')
             elem_with_context = PageElement(tag='tr', context=True)
     """
-    def find(self, context):
+    def find(self, context, delay=0):
         try:
-            return context.find_elements(*self.locator)
+            els = context.find_elements(*self.locator)
+            time.sleep(delay)
+            return els
         except NoSuchElementException:
             return []
 
     def __set__(self, instance, value):
-        if(self.callable_with_context):
+        if(self.context is True):
             raise ValueError("Sorry, the set descriptor doesn't support callable_with_context element.")
         elems = self.__get__(instance, instance.__class__)
         if not elems:

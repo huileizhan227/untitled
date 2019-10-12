@@ -1,5 +1,6 @@
 import unittest
-import driverctl
+
+from common import driverctl
 
 class BaseTestCase(unittest.TestCase):
     def setUp(self):

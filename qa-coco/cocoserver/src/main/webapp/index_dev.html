@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Index</title>
+    <link rel="icon" href="favicon.ico" mce_href="/favicon.ico" type="image/x-icon">
+
+    <!-- Bootstrap core CSS -->
+    <script src="frontend/js/jquery-3.2.1.min.js"></script>
+    <script src="bootstrap4.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="bootstrap4.0.0/css/bootstrap.min.css">
+
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="frontend/css/index.css">
+
+</head>
+
+<body>
+
+<header>
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+
+        <h2  style="color: #ffffff"> Merge:   </h2>
+
+
+        <h3 class="item_time" style="text-align:right;color: #ffffff">From:</h3>
+        <input class="form-control mr-sm-2" type="text" id="input_fromUid" placeholder="From uid">
+        <input class="form-control mr-sm-2" type="text" id="input_fromMergeId"placeholder="From mergeId">
+        <h3 class="item_time" style="text-align:right;color: #ffffff">To:</h3>
+        <input class="form-control mr-sm-2" type="text" id="input_toUid" placeholder="To uid">
+        <input class="form-control mr-sm-2" type="text" id="input_toMergeId"placeholder="To mergeId">
+
+        <button class="btn btn-outline-success my-2 my-sm-0" style="margin-left:60px;" type="submit">Do Merge</button>
+
+
+    </nav>
+</header>
+
+<div class="blog-header" style="text-align:center;margin-bottom:20px;margin-top:100px;">
+    <div class="container">
+        <h1 class="title">CoCoServer Manage page</h1>
+        <h4 class="sub_title">Android Code Coverage Platform</h4>
+        <h4 class="sub_title">This is a demo by lirui2015@corp.netease.com</h4>
+    </div>
+</div>
+
+<div class="container container-fluid ">
+    <div class="list-group" id="container">
+
+
+        <div class="list-group-item card custom_block" >
+            <h2 class="item_author" style="color: #ffffff"> CustomTag: None</h2>
+            <h3 class="item_time" style="color: #ffffff"> uniId: 4564564544</h3>
+            <h3 class="item_time" style="color: #ffffff">time: 2018-05-18_14:32:34</h3>
+            <br />
+        </div>
+
+        <div class="list-group-item card custom_block" >
+            <h2 class="item_author" style="color: #ffffff"> CustomTag: None</h2>
+            <h3 class="item_time" style="color: #ffffff"> uniId: 4f7bab8bfd33657fa93198317fdeef55</h3>
+            <h3 class="item_time" style="color: #ffffff">time: 2018-05-21_11:39:06</h3>
+            <br />
+            <h3 class="item_time" style="color: black">history runtime data: <br /> [rt_2018-05-21_11:41:13.exec] [rt_2018-05-21_11:41:18.exec] [rt_2018-05-21_11:42:23.exec] <br /></h3>
+            <br />
+            <h3 class="item_time" style="color: black">Last report create time: 2018-05-22_17:55:10</h3>
+            <br />
+            <a class="btn btn-primary" href="http://nos.netease.com/ecom/quality/file/4f7bab8bfd33657fa93198317fdeef55/report/index.html" target="_blank">Show Last Report</a>
+            <br />
+            <br />
+            <button type="button" class="btn btn-success" onclick="createNewReport(1)">Create New Report</button>
+            <br />
+            <br />
+            <br />
+            <button type="button" class="btn btn-danger" onclick="delWholeRecord(1)">Delete This Report</button>
+        </div>
+
+
+
+        <div class="list-group-item card custom_block" >
+            <h2 class="item_author" style="color: #ffffff"> CustomTag: None</h2>
+            <h3 class="item_time" style="color: #ffffff"> uniId: 4f7bab8bfd33657fa93198317fdeef55</h3>
+            <h3 class="item_time" style="color: #ffffff">time: 2018-05-21_11:39:06</h3>
+            <br />
+            <h3 class="item_time" style="color: black">history runtime data: <br /> [rt_2018-05-21_11:41:13.exec] [rt_2018-05-21_11:41:18.exec] [rt_2018-05-21_11:42:23.exec] <br /></h3>
+            <br />
+            <h3 class="item_time" style="color: black">Last report create time: 2018-05-22_17:55:10</h3>
+            <br />
+            <a class="btn btn-primary" href="http://nos.netease.com/ecom/quality/file/4f7bab8bfd33657fa93198317fdeef55/report/index.html" target="_blank">Show Last Report</a>
+            <br />
+            <br />
+            <button type="button" class="btn btn-success" onclick="createNewReport(1)">Create New Report</button>
+            <br />
+            <br />
+
+            <div class="list-group-item card custom_block" >
+                <h3 class="item_time" style="color: black">Merge create time: 2018-05-22_17:55:10</h3>
+                <h3 class="item_time" style="color: black">Merge Chain: 2018-05-22_17:55:10</h3>
+                <button type="button" class="btn btn-success" onclick="delWholeRecord(1)">Show Merge Report</button>
+                <button type="button" class="btn btn-danger" onclick="delWholeRecord(1)">Delete This Merge</button>
+
+            </div>
+            <div class="list-group-item card custom_block" >
+                <h3 class="item_time" style="color: black">Merge create time: 2018-05-22_17:55:10</h3>
+                <h3 class="item_time" style="color: black">Merge Chain: 2018-05-22_17:55:10</h3>
+                <a class="btn btn-primary" href="http://nos.netease.com/ecom/quality/file/4f7bab8bfd33657fa93198317fdeef55/report/index.html" target="_blank">Show Last Report</a>
+                <button type="button" class="btn btn-danger" onclick="delWholeRecord(1)">Delete This Merge</button>
+
+            </div>
+            <div class="list-group-item card custom_block" >
+                <h3 class="item_time" style="color: black">Merge create time: 2018-05-22_17:55:10</h3>
+                <h3 class="item_time" style="color: black">Merge Chain: 2018-05-22_17:55:10</h3>
+                <button type="button" class="btn btn-success" onclick="delWholeRecord(1)">Show Merge Report</button>
+                <button type="button" class="btn btn-danger" onclick="delWholeRecord(1)">Delete This Merge</button>
+
+            </div>
+
+            <br />
+            <br />
+            <button type="button" class="btn btn-danger" onclick="delWholeRecord(1)">Delete This Report</button>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function createXmlHttpRequest(){
+        if(window.ActiveXObject){ //IE
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }else if(window.XMLHttpRequest){
+            return new XMLHttpRequest();
+        }
+    }
+    
+    function getTradeTypeAmountData(){
+        var xmlHttp = createXmlHttpRequest();
+        xmlHttp.onreadystatechange = function() {
+          if (xmlHttp.readyState == 4){
+            if(xmlHttp.status == 200){
+            		$('#container')[0].innerHTML = makeDataHtml(JSON.parse(xmlHttp.responseText));
+            }else{
+              alert("network error...");
+            }
+          }
+        }
+
+        xmlHttp.open("GET","/CoCoServer/android/index", true); // true for asynchronous
+        xmlHttp.send(null);
+    }
+    
+    var lastDataList;
+    function makeDataHtml(obj){
+    		if(obj.retCode == 200){
+    			var dataList = obj.dataList;
+    			if(dataList.length == 0){
+    				return "</br></br><h1 class='title'>Empty Record!</h1>";
+    			}else{
+    				lastDataList = dataList;
+    				var res = "";
+    				for(var i=0; i<dataList.length; i++){
+    					res += makeBlock(dataList[i], i);
+    				}
+    				return res;
+    			}
+    		}else{
+    			return "</br></br><h1 class='title'>Server Error!</h1>";
+    		}
+    }
+     
+    
+    function makeBlock(b, index){
+    		var res = "<div class='list-group-item card  custom_block'>";
+    		res += "<h2 class='item_author' style='color: #ffffff'> CustomTag: "+b.customTag+"</h2>";
+    		res += "<h3 class='item_time' style='color: #ffffff'> uniId: "+b.uniId+"</h3>";
+    		res += "<h3 class='item_time' style='color: #ffffff'>time: "+b.timeStr+"</h3></br>";
+    		var rt = b.hRtData;
+    		if(rt&&rt.length>0){
+    			res += "<h3 class='item_time' style='color: black'>history runtime data: </br>";
+        		for(var i=0; i<rt.length; i++){
+        			res+= " ["+rt[i]+"] ";
+        			if((i+1)%3==0){
+        				res+="</br>"
+        			}
+        		}
+        		res += "</h3></br>";
+        		if(b.reportTimeStr){
+        			res += "<h3 class='item_time' style='color: black'>Last report create time: ";
+        			res+= b.reportTimeStr + "</h3></br>";
+        			res += "<a class='btn btn-primary' href='"+b.reportUrl+"' target='_blank'>Show Last Report</a></br>"
+        		}
+        		res += "</br><button type='button' class='btn btn-success' onclick='createNewReport("+index+")'>Create New Report</button>";
+
+    		}
+
+            var mbList = b.mergeBeanList;
+    		if(mbList&&mbList.length>0){
+                for(var j=0; j<mbList.length; j++){
+                res +="</br>"+makeMergeBlock(mbList[j], index, j)
+                }
+    		}
+
+    		res += "</br></br></br><button type='button' class='btn btn-danger' onclick='delWholeRecord("+index+")'>Delete This Report</button>";
+    		res +="</div>";
+    		return res;
+    		
+    }
+
+    function makeMergeBlock(b, index, mIndex){
+    		var res = "<div class='list-group-item card custom_block'>";
+    		res += "<h3 class='item_time' style='color: #ffffff'> mergeId: "+b.mergeId+"</h3>";
+    		res += "<h3 class='item_time' style='color: #ffffff'>time: "+b.timeStr+"</h3>";
+    		res += "<h3 class='item_time' style='color: #ffffff'>merge chain: "+b.chain+"</h3>";
+    		res += "<a class='btn btn-primary' href='"+b.reportUrl+"' target='_blank'>Show Merge Report</a>"
+    		res += "</br></br></br><button type='button' class='btn btn-danger' onclick='delMerge("+index+","+mIndex+")'>Delete This Merge Record</button>";
+    		res +="</div>";
+    		return res;
+    }
+
+    var inHttp = false;
+
+
+	function doMerge(){
+		if(!inHttp){
+		    var fromUid = $("#input_fromUid").val();
+		    var fromMergeId = $("#input_fromMergeId").val();
+		    var toUid = $("#input_toUid").val();
+		    var toMergeId = $("#input_toMergeId").val();
+			var xmlHttp = createXmlHttpRequest();
+	        xmlHttp.onreadystatechange = function() {
+	          if (xmlHttp.readyState == 4){
+	            if(xmlHttp.status == 200){
+	              getTradeTypeAmountData();
+	            }else{
+	              alert("network error...");
+	            }
+	            inHttp = false;
+	          }
+	        }
+	        xmlHttp.open("GET","/CoCoServer/android/merge?fromUid="
+	        +fromUid+"&toUid="+toUid+"&fromMergeId="+fromMergeId+"&toMergeId="+toMergeId, true); // true for asynchronous
+	        xmlHttp.send(null);
+			
+			inHttp = true;
+		}else{
+			alert("last Http did not finished...");
+		}
+    }
+
+    function createNewReport(i){
+		if(!inHttp){
+			var xmlHttp = createXmlHttpRequest();
+	        xmlHttp.onreadystatechange = function() {
+	          if (xmlHttp.readyState == 4){
+	            if(xmlHttp.status == 200){
+	              getTradeTypeAmountData();
+	            }else{
+	              alert("network error...");
+	            }
+	            inHttp = false;
+	          }
+	        }
+	        xmlHttp.open("GET","/CoCoServer/android/report?uniId="+lastDataList[i].uniId, true); // true for asynchronous
+	        xmlHttp.send(null);
+
+			inHttp = true;
+		}else{
+			alert("last Http did not finished...");
+		}
+    }
+
+    function delWholeRecord(i){
+        if(!inHttp){
+            var xmlHttp = createXmlHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+              if (xmlHttp.readyState == 4){
+                if(xmlHttp.status == 200){
+                  getTradeTypeAmountData();
+                }else{
+                  alert("network error...");
+                }
+                inHttp = false;
+              }
+            }
+            xmlHttp.open("GET","/CoCoServer/android/del?uniId="+lastDataList[i].uniId, true); // true for asynchronous
+            xmlHttp.send(null);
+            inHttp = true;
+		}else{
+			alert("last Http did not finished...");
+		}
+    }
+
+    function delMerge(i, m){
+        if(!inHttp){
+            var xmlHttp = createXmlHttpRequest();
+            xmlHttp.onreadystatechange = function() {
+              if (xmlHttp.readyState == 4){
+                if(xmlHttp.status == 200){
+                  getTradeTypeAmountData();
+                }else{
+                  alert("network error...");
+                }
+                inHttp = false;
+              }
+            }
+            xmlHttp.open("GET","/CoCoServer/android/delMerge?uniId="+lastDataList[i].uniId
+                +"&mergeId="+lastDataList[i].mergeBeanList[m].mergeId, true); // true for asynchronous
+            xmlHttp.send(null);
+            inHttp = true;
+		}else{
+			alert("last Http did not finished...");
+		}
+    }
+
+    <!--getTradeTypeAmountData();-->
+
+
+</script>
+
+</body>
+
+</html>

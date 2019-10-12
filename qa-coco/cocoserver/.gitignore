@@ -1,0 +1,5 @@
+/target/
+/TestBaseDir
+.classpath
+.idea/
+.settings/

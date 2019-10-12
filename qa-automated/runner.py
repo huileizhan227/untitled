@@ -1,26 +1,30 @@
 import os
+import sys
 import time
 import qasite
 import pytest
 import config
-import devicectl
-import serverctl
 
 from multiprocessing import Pool
 from performance import Report as Perf
+from common import devicectl
+from common import serverctl
+from common import utils
 
-def run(project_name=None, build_id=None):
+def run(project_name=None, build_id=None, test_name_filter=None):
     # before
     if (not project_name) or (not build_id):
-        log_folder = os.path.join(config.LOG_FOLDER, time.strftime('%Y%m%d.%H%M%S'))
+        log_folder = os.path.join(config.LOG_FOLDER, utils.get_formated_time())
     else:
         log_folder = os.path.join(config.LOG_FOLDER, project_name, str(build_id))
-    devicectl.uninstall_apk()
-    devicectl.uninstall_ua2()
 
     # run server
-    serverctl.run_servers()
-    
+    serverctl.run_servers(log_folder=log_folder)
+
+    devicectl.uninstall_apk()
+    devicectl.uninstall_ua2()
+    devicectl.wakeup()
+
     # run cases
     devices = config.devices
     # case_process_list = []
@@ -34,7 +38,7 @@ def run(project_name=None, build_id=None):
         ui_report = os.path.join(report_folder, 'report.html')
         device['perf_report'] = perf_report
         device['ui_report'] = ui_report
-        args=(perf_log, perf_report, ui_report, device['id'])
+        args=(perf_log, perf_report, ui_report, device['id'], test_name_filter)
         args_list.append(args)
 
     pool = Pool(len(args_list))
@@ -59,13 +63,23 @@ def run(project_name=None, build_id=None):
     
     print('test finished.')
 
-def run_cases(perf_log, perf_report, ui_report, device_id):
+def run_cases(perf_log, perf_report, ui_report, device_id, test_name_filter):
     # runpytest
-    pytest.main([
+    arg_list = [
         'cases/app',
         '--html={}'.format(ui_report),
         '--self-contained-html',
         '--device-id={}'.format(device_id),
         '--perf-log={}'.format(perf_log),
         '--perf-report={}'.format(perf_report)
-    ])
+    ]
+    if test_name_filter:
+        arg_list.extend(['-k', test_name_filter])
+
+    pytest.main(arg_list)
+
+if __name__ == "__main__":
+    test_name_filter = None
+    if len(sys.argv) > 1:
+        test_name_filter = sys.argv[1]
+    run(test_name_filter=test_name_filter)
