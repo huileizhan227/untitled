@@ -7,6 +7,8 @@
 from PIL import Image, ImageDraw, ImageFont
 import os
 
+# 参考：https://mp.weixin.qq.com/s/oQswOk1GjJoYG-pI-_Pf_Q
+
 def text2pic(file_dir,text):
     '''
     将file_dir中的文件在左下角打上水印文案text
