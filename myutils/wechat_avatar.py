@@ -13,7 +13,7 @@ import os
 
 
 # 创建头像下载存放文件夹
-def create_filepath():
+def creat_filepath():
     avatar_dir = os.getcwd() + "\\wechat\\"
     if not os.path.exists(avatar_dir):
         os.mkdir(avatar_dir)
@@ -65,6 +65,6 @@ def joint_avatar(path):
 
 
 if __name__ == '__main__':
-    avatar_dir = create_filepath()
+    avatar_dir = creat_filepath()
     save_avatar(avatar_dir)
     joint_avatar(avatar_dir)

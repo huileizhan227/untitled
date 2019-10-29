@@ -26,3 +26,9 @@ logging.info('info message')
 logging.warning('warn message')
 logging.error('error message')
 logging.critical('critical message')
+
+# 方法三：直接用loguru模块，不使用自写配置等
+# from loguru import logger
+# logger.add("runtime.log")
+# logger.info('This is an info message.')
+

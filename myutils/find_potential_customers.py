@@ -13,7 +13,7 @@ class VisitRecord():
     针对某些无法放入集合或者字典的的对象，定义一个类，自定义__hash__和__eq__方法来实现
     '''
 
-    def __init__(self,first_name, last_name, phone_number, date_visited):
+    def __init__(self, first_name, last_name, phone_number, date_visited):
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
