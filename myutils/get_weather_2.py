@@ -5,6 +5,7 @@
 #! @File : get_weather_2.py
 
 # 由于微信网页版无法登陆，因此目前wxpy无法使用。
+# 参考：https://mp.weixin.qq.com/s/GrWQN6-gK49L8l0u37Tr7g
 import requests
 import json
 from wxpy import *
