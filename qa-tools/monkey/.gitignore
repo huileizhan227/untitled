@@ -1,0 +1,7 @@
+res/
+log/
+__pycache__/
+local_settings.py
+data/
+/*.apk
+*.build_id

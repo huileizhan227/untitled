@@ -1,0 +1,5 @@
+.pytest_cache/
+log/
+res/
+__pycache__/
+local_settings.py
