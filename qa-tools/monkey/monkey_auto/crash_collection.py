@@ -7,7 +7,10 @@ def get_crash_log(log_path, file_coding):
         line = file.readline().decode(file_coding)
         while line:
             line = file.readline().decode(file_coding)
-            if 'beginning of crash' in line:
+            if (
+                'beginning of crash' in line or
+                ('AndroidRuntime' in line and 'com.transsnet.news.more' in line)
+            ):
                 log += line
                 while line:
                     line = file.readline().decode(file_coding)
@@ -36,6 +39,8 @@ def to_file(log_folder, file_path):
 
 def collect_anr(log_folder, anr_folder, name_filter='monkey', file_coding='utf-8'):
     file_list = os.listdir(log_folder)
+    if not os.path.exists(anr_folder):
+        os.makedirs(anr_folder)
     for file_name in file_list:
         if name_filter not in file_name:
             continue

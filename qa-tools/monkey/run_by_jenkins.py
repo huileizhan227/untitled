@@ -78,6 +78,7 @@ def main(event_num=10000):
         log_folder, project_name, build_id
     )
     crash_collection.to_file(log_folder, crash_file_path)
+    crash_collection.collect_anr(log_folder, os.path.join(log_folder, 'anr'))
 
     # upload
     global report_upload_url

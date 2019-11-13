@@ -4,7 +4,6 @@ import time
 from country import countries
 
 pkg = 'com.transsnet.news.more.common'
-# pkg = 'com.transsnet.news.more'
 
 cmd_change_country = 'adb shell am broadcast -a io.appium.settings.locale -n io.appium.settings/.receivers.LocaleSettingReceiver --es lang {lang} --es country {country}'
 cmd_clear = 'adb shell pm clear {}'.format(pkg)

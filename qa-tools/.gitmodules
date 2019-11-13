@@ -1,0 +1,3 @@
+[submodule "android-emulator-manager"]
+	path = android-emulator-manager
+	url = git@github.com:rinkky/android-emulator-manager.git
