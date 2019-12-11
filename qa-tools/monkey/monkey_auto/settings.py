@@ -1,29 +1,22 @@
-devices = {
-    'Android6.0': {
-        'id': 'emulator-5554',
-        'port': 5554,
-        'name': 'Android6.0',
-        'version': '6.0'
+from android_emulator_manager import emulator_pool
+
+"""
+devices = [
+    {
+        'id': 'emulator-5562',
+        'port': 5562,
+        'name': 'Android5.0',
+        'version': '5.0'
     },
-    'Android8.1': {
-        'id': 'emulator-5556',
-        'port': 5556,
-        'name': 'Android8.1',
-        'version': '8.1'
-    },
-    'Android7.0': {
-        'id': 'emulator-5558',
-        'port': 5558,
-        'name': 'Android7.0',
-        'version': '7.0'
-    },
-    'Android7.1.1': {
-        'id': 'emulator-5560',
-        'port': 5560,
-        'name': 'Android7.1.1',
-        'version': '7.1.1'
+    {
+        'id': 'emulator-5564',
+        'port': 5564,
+        'name': 'Android4.4',
+        'version': '4.4'
     }
-}
+]
+"""
+devices = emulator_pool.get_all()
 
 apks = {
     'common': {

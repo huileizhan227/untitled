@@ -3,3 +3,4 @@ log/
 res/
 __pycache__/
 local_settings.py
+window_dump.xml

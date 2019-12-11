@@ -5,3 +5,5 @@ local_settings.py
 data/
 /*.apk
 *.build_id
+/test.py
+run_local.bat

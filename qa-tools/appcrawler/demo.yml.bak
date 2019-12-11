@@ -1,0 +1,91 @@
+pluginList: []
+saveScreen: true
+reportTitle: ""
+resultDir: ""
+waitLoading: 500
+waitLaunch: 6000
+showCancel: true
+maxTime: 10800
+maxDepth: 1
+
+capability:
+  noReset: "true"
+  fullReset: "false"
+  appium: "http://127.0.0.1:4723/wd/hub"
+  appPackage: com.transsnet.news.more
+  appActivity: com.africa.news.activity.SplashActivity
+testcase:
+  name: "More demo"
+  steps: []
+
+selectedList: 
+# 可点击且有id，点击之
+- xpath: "//*[@clickable='true' and @resource-id!='']"
+# 祖先：可点击但是没有id 后代：有id或有文字，点击符合上述条件的第一个后代
+- xpath: "//*[@clickable='true' and @resource-id='']//*[@resource-id!='' or @text!=''][1]"
+
+firstList: []
+lastList:
+- xpath: "//*[contains(@resource-id, 'com.transsnet.news.more:id/me_container')]//*"
+# 最后再遍历底部tab
+- xpath: "//*[contains(@resource-id, 'bottom_navigation')]//*"
+
+backButton:
+- xpath: "Navigate up"
+- xpath: "//*[contains(@resource-id, 'id/close')]"
+# - xpath: 
+
+triggerActions:
+# 关强制弹窗
+- xpath: "//*[contains(@resource-id, 'id/tv_close')]"
+  times: 0
+
+xpathAttributes:
+- "name"
+- "label"
+- "value"
+- "resource-id"
+- "content-desc"
+- "instance"
+- "text"
+sortByAttribute:
+- "depth"
+- "list"
+- "selected"
+
+#findBy: "default"
+findBy: "xpath"
+
+defineUrl: []
+# 为了让深度更明确，暂不自定义url
+# - //*[@resource-id="com.xueqiu.android:id/page_type_stock"]
+# - //*[@resource-id="com.xueqiu.android:id/page_type_fund"]
+
+baseUrl: []
+appWhiteList: []
+urlBlackList: []
+urlWhiteList: []
+blackList:
+# 登录相关按钮
+- xpath: "//*[contains(@resource-id, 'id/img_login_google')]"
+- xpath: "//*[contains(@resource-id, 'id/img_login_twitter')]"
+- xpath: "//*[contains(@resource-id, 'id/img_login_facebook')]"
+- xpath: "//*[contains(@resource-id, 'id/join_number_btn')]"
+- xpath: "//*[contains(@resource-id, 'id/login_in_btn')]"
+
+beforeRestart: []
+beforeElement:
+- given: []
+  when: null
+  then: []
+  xpath: "/*"
+  action: "Thread.sleep(100)"
+  actions: []
+  times: 0
+afterElement: []
+afterPage: []
+afterPageMax: 2
+tagLimitMax: 4
+tagLimit:
+- xpath: "//*[contains(@resource-id, 'id/refresh_article_list')]//*[contains(@resource-id, 'id/title')]"
+assertGlobal: []

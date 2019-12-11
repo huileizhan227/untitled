@@ -1,3 +1,5 @@
+'use strict';
+
 const functions = require('firebase-functions');
 const rp = require('request-promise');
 
@@ -20,6 +22,7 @@ function notifyWechat(msg) {
 }
 
 exports.postOnVelocityAlert = functions.crashlytics.issue().onVelocityAlert(async (issue) => {
+    console.log(`onVelocityAlert triggered`);
     const issueId = issue.issueId;
     const issueTitle = issue.issueTitle;
     const appName = issue.appInfo.appName;

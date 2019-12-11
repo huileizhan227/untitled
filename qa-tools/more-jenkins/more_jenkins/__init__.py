@@ -12,9 +12,7 @@ class Jenkins(object):
         self.rss_url = rss_url
         if apk_link_pattern_list is None:
             apk_link_pattern_list=[
-                '(?<=href=[\'\"])[mM]ore[^\s\'\"]+normal[^\s\'\"]+\.apk(?=[\'\"])',
-                '(?<=href=[\'\"])[mM]ore[^\s\'\"]+common[^\s\'\"]+\.apk(?=[\'\"])',
-                '(?<=href=[\'\"])[mM]ore[^\s\'\"]+\.apk(?=[\'\"])'
+                r'(?<=href=[\'\"])[mM]ore[^\s\'\"]+\.apk(?=[\'\"])'
             ]
 
         self.apk_link_pattern_list = apk_link_pattern_list
@@ -30,6 +28,28 @@ class Jenkins(object):
         self.build_id = int(title.split()[1][1:])
         self.project_name = title.split()[0]
         self.is_stable = '(stable)' in title or '(back to normal)' in title
+    
+    def request_stable(self):
+        """request the last stable build.
+        - returns:
+            - True: success
+            - False: no stable build
+        """
+        if hasattr(self, 'is_stable') and self.is_stable:
+            return True
+        jenkins_feed = feedparser.parse(self.rss_url)
+        if (not jenkins_feed.has_key('status')) or jenkins_feed.status != 200:
+            raise Exception('rss request failed.')
+        for entry in jenkins_feed.entries:
+            title = entry.title
+            is_stable = '(stable)' in title or '(back to normal)' in title
+            if is_stable:
+                self.build_link = entry.link
+                self.build_id = int(title.split()[1][1:])
+                self.project_name = title.split()[0]
+                self.is_stable = '(stable)' in title or '(back to normal)' in title
+                return True
+        return False
 
     def refresh(self):
         self.request()
@@ -44,59 +64,49 @@ class Jenkins(object):
         if self._apk_link:
             return self._apk_link
 
-        output_link = self.get_apk_download_page_url(conf_name)
-        response = requests.get(output_link)
-        for apk_pattern in self.apk_link_pattern_list:
-            match = re.search(apk_pattern, response.text)
-            if match:
-                self._apk_link = helpers.join_url(output_link, match.group())
-                return self._apk_link
-        raise Exception(
-            'cannot find apk link by pattern /{}/ in page: {}'.format(
-                self.apk_link_pattern_list,
-                output_link
-        ))
+        apk_links = self.get_all_apk_links(conf_name)
+        if not apk_links:
+            return None
+
+        #TODO: config
+        for apk_link in apk_links:
+            if 'normal' in apk_link.split('/')[-1]:
+                return apk_link
+
+        for apk_link in apk_links:
+            if 'common' in apk_link.split('/')[-1]:
+                return apk_link
+
+        return apk_links[0]
 
     def get_all_apk_links(self, conf_name='default'):
         """ get all apk links
 
-        use the last pattern in `apk_link_pattern_list`
+        use the patterns in `apk_link_pattern_list`
         """
-        output_link = self.get_apk_download_page_url(conf_name)
-        response = requests.get(output_link)
-        matchs = re.findall(self.apk_link_pattern_list[-1], response.text)
-        link_list = []
-        for match in matchs:
-            apk_link = helpers.join_url(output_link, match)
-            link_list.append(apk_link)
-        return link_list
-
-    def get_apk_download_page_url(self, conf_name):
-        if not hasattr(self, 'project_name'):
+        if not hasattr(self, 'build_link'):
             self.request()
+        output_link = helpers.join_url(self.build_link, conf_name, 'artifact/app/release/')
+        apk_links = self.get_apk_links_from_url(output_link)
+        if apk_links:
+            return apk_links
+        return None
 
-        mid_link = helpers.join_url(self.build_link, conf_name, 'artifact')
-        response = requests.get(mid_link)
-        if(response.status_code != 200):
-            raise Exception(
-                'open mid_link failed, check it: {}'.format(mid_link)
-            )
-        soup = BeautifulSoup(response.text, features='html.parser')
-        tag = soup.find('a', string='release')
-        if not tag:
-            raise Exception(
-                'cannot find "<a>release</a>" in page: {}'.format(mid_link)
-            )
+    def get_apk_links_from_url(self, output_link):
+        response = requests.get(output_link)
+        link_list = set()
+        for pattern in self.apk_link_pattern_list:
+            matchs = re.findall(pattern, response.text)
+            for match in matchs:
+                apk_link = helpers.join_url(output_link, match)
+                link_list.add(apk_link)
+        return list(link_list)
 
-        output_link = helpers.join_url(mid_link, tag['href'])
-        return output_link
 
 master = Jenkins(
     rss_url='https://package.more.buzz/job/transsnet_master/rssAll',
     apk_link_pattern_list=[
-        '(?<=href=[\'\"])[mM]ore[^\s\'\"]+normal[^\s\'\"]+\.apk(?=[\'\"])',
-        '(?<=href=[\'\"])[mM]ore[^\s\'\"]+common[^\s\'\"]+\.apk(?=[\'\"])',
-        '(?<=href=[\'\"])[mM]ore[^\s\'\"]+\.apk(?=[\'\"])'
+        r'(?<=href=[\'\"])[mM]ore[^\s\'\"]+\.apk(?=[\'\"])'
     ]
 )
 
