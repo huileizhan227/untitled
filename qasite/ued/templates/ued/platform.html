@@ -11,12 +11,87 @@
 
 {% block content %}
     {% if platform_name %}
-        <div class="collection">
-            {% for version in version_list %}
-                <a class="collection-item" href="{% url 'ued:detail' platform_name version %}"> {{ version }} </a>
+        <table class="highlight">
+        <thead>
+        <tr>
+            <th class="center">交互稿列表</th>
+            <th></th>
+            <th></th>
+        </tr>
+        <thead>
+            {% for version, mtime in version_time_list %}
+            <tr>
+                <td class="row" >
+                    <a class="col s12" href="{% url 'ued:detail' platform_name version %}"> {{ version }}</a>
+                </td>
+                <td>{{mtime}}</td>
+                <td> <a id="{{forloop.counter}}" href="#" class="a_toggle">upload</a> </td>
+            </tr>
+            <tr>
+                <td class="hide" id="td_{{forloop.counter}}" colspan="3">
+                    <form id="form_{{forloop.counter}}" action="{% url 'ued:upload' %}" method="post" enctype="multipart/form-data">
+                        <input name="version" value="{{version}}" class="hide" />
+                        <input name="platform" value="{{platform_name}}" class="hide" />
+                        <div class="file-field input-field">
+                            <div class="btn">
+                                <span>选择文件</span>
+                                <input type="file" name="file" accept=".zip">
+                            </div>
+                            <div class="file-path-wrapper">
+                                <input class="file-path validate" type="text">
+                            </div>
+                            <input type="submit" class="btn" >
+                        </div>
+                    </form>
+                </td>
+            </tr>
             {% endfor %}
-        </div>
+            <tr>
+            <form action="{% url 'ued:upload' %}" method="post" enctype="multipart/form-data">
+                <input name="platform" value="{{platform_name}}" class="hide">
+                <td class="">
+                <div class="hide" id="div_new_version">
+                    <div class="input-field col s9">
+                        <input name="version" id="version_name" type="text" class="validate">
+                        <label for="version_name">新版本名字</label>
+                    </div>
+                    <div class="file-field input-field">
+                        <div class="btn">
+                            <span>选择文件</span>
+                            <input type="file" name="file" accept=".zip">
+                        </div>
+                        <div class="file-path-wrapper">
+                            <input class="file-path validate" type="text">
+                        </div>
+                    </div>
+                    <div class="input-filed">
+                        <input type="submit" class="btn" value="提交">
+                    </div>
+                </div>
+                </td>
+                <td class="">
+                </td>
+                <td >
+                    <a id="a_new_version" href="#"> 创建新版本 </a>
+                </td>
+            </form>
+            </tr>
+        </table>
     {% else %}
         <p>no docs</p>
     {% endif %}
+{% endblock %}
+
+{% block script %}
+<script>
+$(document).ready(function(){
+  $(".a_toggle").click(function(){
+    var index = $(this).prop("id");
+    $("#td_"+index).removeClass("hide");
+  });
+  $("#a_new_version").click(function(){
+      $("#div_new_version").removeClass("hide");
+  });
+});
+</script>
 {% endblock %}

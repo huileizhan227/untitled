@@ -5,11 +5,4 @@
     <orderEntry type="jdk" jdkName="Python 3.7.3 (C:\Python37\python.exe)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
-  <component name="TemplatesService">
-    <option name="TEMPLATE_FOLDERS">
-      <list>
-        <option value="$MODULE_DIR$/ued/templates" />
-      </list>
-    </option>
-  </component>
 </module>

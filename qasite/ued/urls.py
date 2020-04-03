@@ -8,7 +8,7 @@ app_name = 'ued'
 urlpatterns = [
     path('', views.index, name='index'),
     path('doc/<str:platform_name>/', views.platform, name='platform'),
-    path('doc/<str:platform_name>/<str:version>', views.detail, name='detail'),
+    path('doc/<str:platform_name>/<str:version>/', views.detail, name='detail'),
     path('api/upload/', views.upload, name='upload'),
     path('api/reset/', views.reset, name='reset')
 ]

@@ -11,27 +11,52 @@
 <a class="breadcrumb" href="#" >{{ report.build_id }}</a>
 {% endblock %}
 
-{% block content %}
+{% block content-full%}
+
 <div class="nav-content blue lighten-1">
     <ul class="tabs blue-text text-darken-2">
         <li class="tab"><a class="active" href="#automated">自动化测试报告</a></li>
         <li class="tab"><a href="#performance">性能测试报告</a></li>
-        <li class="tab"><a href="https://coco.more.buzz">覆盖率报告</a></li>
-        <!-- <li class="tab"><a href="#test4">Test 4</a></li> -->
+        <li class="tab"><a href="#coco">覆盖率报告</a></li>
+        <li class="tab"><a href="#monkey">monkey</a></li>
     </ul>
 </div>
 
-<div id="automated" class="col s12">
+<div id="automated" class="col s12 report_container">
     {% if report.automated_testing_report %}
         <iframe src='{{ report.automated_testing_report.url }}' class="report"></iframe>
+    {% else %}
+        <p class="note">
+            该包暂时没有自动化测试报告
+        </p>
     {% endif %}
 </div>
-<div id="performance" class="col s12">
+<div id="performance" class="col s12 report_container">
     {% if report.performance_report %}
         <iframe src='{{ report.performance_report.url }}' class="report" ></iframe>
+    {% else %}
+        <p class="note">
+            该包暂时没有性能报告
+        </p>
     {% endif %}
 </div>
-<div id="coco" class="col s12">
+<div id="coco" class="col s12 report_container">
+    <a href="https://coco.more.buzz">
+                点击前往临时覆盖率网站
+    </a>
+</div>
 
+
+<div id="monkey" class="report_container">
+    {% if report.monkey_report %}
+        <a href="{{ report.monkey_report.url }}">点击下载</a>
+        <pre>
+            {{ monkey_content }}
+        </pre>
+    {% else %}
+        <p class="note">
+            该包暂时没有monkey报告
+        </p>
+    {% endif %}
 </div>
 {% endblock %}

@@ -8,6 +8,7 @@ app_name = 'report'
 urlpatterns = [
     path('', views.index, name='index'),
     path('project/<str:project_name>/', views.project, name='project'),
-    path('project/<str:project_name>/<int:build_id>', views.detail, name='detail'),
+    path('project/<str:project_name>/<int:build_id>/', views.detail, name='detail'),
+    path('latest/<str:project_name>/', views.latest, name='latest'),
     path('upload/', views.upload, name='upload'),
 ]

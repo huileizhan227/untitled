@@ -1,6 +1,8 @@
 import os
 import sys
+import time
 import shutil
+import random
 import zipfile
 import logging
 import urllib.parse
@@ -11,6 +13,7 @@ from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.http import HttpResponse
 from django.http import Http404
+from django.urls import reverse
 
 UED_ROOT = os.path.join(settings.MEDIA_ROOT, 'ued')
 UED_TMP_PATH = os.path.join(UED_ROOT, 'tmp')
@@ -37,9 +40,19 @@ def platform(request, platform_name):
     if not os.path.exists(platform_path):
         raise Http404()
     version_list = os.listdir(platform_path)
+    version_time_list = []
+    fs = FileSystemStorage()
+    for version in version_list:
+        change_log_path = os.path.join(
+            UED_CONTENT_RELATIVE_PATH, platform_name, version, 'change_log.html'
+        )
+        format_time = ''
+        if fs.exists(change_log_path):
+            format_time = fs.get_modified_time(change_log_path).strftime('%Y.%m.%d')
+        version_time_list.append([version, format_time])
     context = {
         'platform_name': platform_name,
-        'version_list': version_list
+        'version_time_list': version_time_list
     }
     return render(request, 'ued/platform.html', context=context)
 
@@ -65,19 +78,23 @@ def upload(request):
     if request.method == 'GET':
         raise Http404()
     zip_file = request.FILES['file']
-    platform = request.POST['platform']
+    platform_name = request.POST['platform']
     version = request.POST['version']
-    platform = platform.replace(' ', '_')
+    platform_name = platform_name.replace(' ', '_')
     version = version.replace(' ', '_')
 
     fs = FileSystemStorage(UED_TMP_PATH)
     file_name = fs.save(zip_file.name, zip_file)
     zip_path = os.path.join(UED_TMP_PATH, file_name)
     
-    ued_version_path = os.path.join(UED_CONTENT_PATH, platform, version)
+    ued_version_path = os.path.join(UED_CONTENT_PATH, platform_name, version)
     if os.path.exists(ued_version_path):
         shutil.rmtree(ued_version_path)
-    unzip.unzip_file_with_encoding(zip_path, ued_version_path)
+    try:
+        unzip.unzip_file_with_encoding(zip_path, ued_version_path)
+    except:
+        shutil.rmtree(ued_version_path)
+        unzip.unzip_file(zip_path, ued_version_path)
     ued_folder = ''
     for folder, sub_folders, sub_files in os.walk(ued_version_path):
         for sub_file in sub_files:
@@ -89,7 +106,9 @@ def upload(request):
             shutil.move(path_, ued_version_path)
 
     shutil.rmtree(UED_TMP_PATH)
-    return HttpResponse('upload success')
+    return HttpResponse('upload success  <a href="{}?{}">go back</a>'.format(
+        reverse('ued:platform',args=[platform_name]), random.random())
+    )
 
 def reset(request):
     if request.method == 'GET':
