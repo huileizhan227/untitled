@@ -1,0 +1,78 @@
+pluginList: []
+saveScreen: true
+reportTitle: ""
+resultDir: ""
+waitLoading: 500
+waitLaunch: 6000
+showCancel: true
+maxTime: 10800
+maxDepth: 2
+
+capability:
+  noReset: "true"
+  fullReset: "false"
+  appium: "http://127.0.0.1:4723/wd/hub"
+  appPackage: com.transsnet.news.more
+  appActivity: com.africa.news.activity.SplashActivity
+testcase:
+  name: "More demo"
+  steps:
+  - xpath: //*[contains(@resource-id, 'id/me_icon')]
+    action: "click"
+
+selectedList: 
+# 
+- xpath: //*[contains(@resource-id, 'id/left_drawer')]/*[2]//*[@text!='']
+
+firstList: []
+lastList: 
+- xpath: //*[contains(@resource-id, 'id/tab')]//*
+
+backButton:
+- xpath: "Navigate up"
+- xpath: //*[contains(@resource-id, 'id/close')]
+
+triggerActions:
+# 关强制弹窗
+- xpath: //*[contains(@resource-id, 'id/tv_close')]
+  times: 0
+
+
+xpathAttributes:
+- "name"
+- "label"
+- "value"
+- "resource-id"
+- "content-desc"
+- "instance"
+- "text"
+sortByAttribute:
+- "depth"
+- "list"
+- "selected"
+
+findBy: "xpath"
+defineUrl: []
+baseUrl: []
+appWhiteList: []
+urlBlackList: []
+urlWhiteList: []
+blackList:
+# 整个首页
+- xpath: //*[contains(@resource-id, 'id/bottom_navigation')]/..//*
+
+beforeRestart: []
+beforeElement:
+- given: []
+  when: null
+  then: []
+  xpath: "/*"
+  action: "Thread.sleep(300)"
+  actions: []
+  times: 0
+afterElement: []
+afterPage: []
+afterPageMax: 2
+tagLimitMax: 10
+tagLimit: []
+assertGlobal: []

@@ -12,7 +12,8 @@ class Jenkins(object):
         self.rss_url = rss_url
         if apk_link_pattern_list is None:
             apk_link_pattern_list=[
-                r'(?<=href=[\'\"])[mM]ore[^\s\'\"]+\.apk(?=[\'\"])'
+                r'(?<=href=[\'\"])[mM]ore[^\s\'\"]+\.apk(?=[\'\"])',
+                r'(?<=href=[\'\"])[^\s\'\"]*/[mM]ore[^\s\'\"]+\.apk(?=[\'\"])',
             ]
 
         self.apk_link_pattern_list = apk_link_pattern_list
@@ -86,10 +87,14 @@ class Jenkins(object):
         """
         if not hasattr(self, 'build_link'):
             self.request()
-        output_link = helpers.join_url(self.build_link, conf_name, 'artifact/app/release/')
-        apk_links = self.get_apk_links_from_url(output_link)
-        if apk_links:
-            return apk_links
+        output_links = [
+            helpers.join_url(self.build_link, conf_name, 'artifact/app/release/'),
+            helpers.join_url(self.build_link, conf_name)
+        ]
+        for output_link in output_links:
+            apk_links = self.get_apk_links_from_url(output_link)
+            if apk_links:
+                return apk_links
         return None
 
     def get_apk_links_from_url(self, output_link):
@@ -100,7 +105,9 @@ class Jenkins(object):
             for match in matchs:
                 apk_link = helpers.join_url(output_link, match)
                 link_list.add(apk_link)
-        return list(link_list)
+            if link_list:
+                return list(link_list)
+        return []
 
 
 master = Jenkins(

@@ -6,7 +6,7 @@ waitLoading: 500
 waitLaunch: 6000
 showCancel: true
 maxTime: 10800
-maxDepth: 4
+maxDepth: 3
 
 capability:
   noReset: "true"
@@ -19,23 +19,20 @@ testcase:
   steps: []
 
 selectedList: 
-# 顶部tab
-- xpath: //*[contains(@resource-id, 'id/tabLayout')]//*[@text!='']
+# topic icon
+- xpath: //*[contains(@resource-id, 'id/iv_icon')]
 
-# 普通新闻 / for you视频
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/title')]
-# headline / 大图新闻
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/title_text')]
-# headline read more
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/tv_more')]
-# vskit
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/iv_play')]
-# 足球-主队名
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/iv_home')]
-# 足球-联赛名
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/tv_league')]
-# 足球-时间(点击进入比赛页)
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/tv_time')]
+# more
+- xpath: //*[contains(@resource-id, 'id/tv_recommend_more')]
+- xpath: //*[contains(@resource-id, 'id/tv_popular_more')]
+
+# category
+- xpath: //*[contains(@resource-id, 'id/tv_category')]
+
+# follow
+- xpath: //*[contains(@resource-id, 'id/followButton')]
+# start reading
+- xpath: //*[contains(@resource-id, 'id/tv_start_reading')]
 
 firstList: []
 lastList:
@@ -50,8 +47,8 @@ triggerActions:
 # 关强制弹窗
 - xpath: //*[contains(@resource-id, 'id/tv_close')]
   times: 0
-# 强制选中home tab
-- xpath: //*[contains(@resource-id, 'id/tab_news') and @selected='false']
+# 强制选中follow tab
+- xpath: //*[contains(@resource-id, 'id/tab_follow') and @selected='false']
   times: 0
 
 xpathAttributes:

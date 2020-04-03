@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 echo "发现文章数<=num的topic比例"
 echo arg1: file, arg2: num
 

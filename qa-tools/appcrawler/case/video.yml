@@ -28,10 +28,12 @@ testcase:
   # - xpath: "//*[contains(@resource-id, 'id/tab_close')]"
   #   action: "click"
 selectedList: 
-# 可点击且有id，点击之
-- xpath: "//*[@clickable='true' and @resource-id!='']"
-# 祖先：可点击但是没有id 后代：有id或有文字，点击符合上述条件的第一个后代
-- xpath: "//*[@clickable='true' and @resource-id='']//*[@resource-id!='' or @text!=''][1]"
+# 评论图标
+- xpath: "//*[contains(@resource-id, 'id/comment')]"
+# 用户名
+- xpath: "//*[contains(@resource-id, 'id/tvName')]"
+# 顶部频道
+- xpath: "//*[contains(@resource-id, 'id/tabLayout')]//*[@text!='']"
 
 firstList: []
 lastList:
@@ -47,8 +49,9 @@ triggerActions:
 # 关强制弹窗
 - xpath: "//*[contains(@resource-id, 'id/tv_close')]"
   times: 0
-# 强制选中home tab
-- xpath: "//*[contains(@resource-id, 'id/tab_news') and @selected='false']"
+
+# 选中video tab
+- xpath: "//*[contains(@resource-id, 'id/tab_video') and @selected='false']"
   times: 0
 
 xpathAttributes:
@@ -102,7 +105,6 @@ beforeElement:
 afterElement: []
 afterPage: []
 afterPageMax: 2
-tagLimitMax: 2
-tagLimit:
-- xpath: "//*[contains(@resource-id, 'id/refresh_article_list')]//*[contains(@resource-id, 'id/title')]"
+tagLimitMax: 20
+tagLimit: []
 assertGlobal: []

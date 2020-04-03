@@ -1,0 +1,71 @@
+pluginList: []
+saveScreen: true
+reportTitle: ""
+resultDir: ""
+waitLoading: 500
+waitLaunch: 6000
+showCancel: true
+maxTime: 150
+maxDepth: 1
+
+capability:
+  noReset: "true"
+  fullReset: "false"
+  appium: "http://127.0.0.1:4723/wd/hub"
+  appPackage: com.transsnet.news.more
+  appActivity: com.africa.news.activity.SplashActivity
+testcase:
+  name: "More demo"
+  steps:
+  - xpath: //*[contains(@resource-id, 'id/tab_settings')]
+    action: "click"
+
+selectedList: 
+# 频道
+- xpath: //*[contains(@resource-id, 'id/channel_name')]
+
+firstList: []
+lastList: []
+backButton:
+- xpath: //*[contains(@resource-id, 'id/tab_settings')]
+
+triggerActions:
+# 关强制弹窗
+- xpath: //*[contains(@resource-id, 'id/tv_close')]
+  times: 0
+
+xpathAttributes:
+- "name"
+- "label"
+- "value"
+- "resource-id"
+- "content-desc"
+- "instance"
+- "text"
+sortByAttribute:
+- "depth"
+- "list"
+- "selected"
+
+findBy: "xpath"
+defineUrl: []
+baseUrl: []
+appWhiteList: []
+urlBlackList: []
+urlWhiteList: []
+blackList: []
+beforeRestart: []
+beforeElement:
+- given: []
+  when: null
+  then: []
+  xpath: "/*"
+  action: "Thread.sleep(300)"
+  actions: []
+  times: 0
+afterElement: []
+afterPage: []
+afterPageMax: 2
+tagLimitMax: 20
+tagLimit: []
+assertGlobal: []

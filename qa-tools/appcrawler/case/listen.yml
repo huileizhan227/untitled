@@ -6,7 +6,7 @@ waitLoading: 500
 waitLaunch: 6000
 showCancel: true
 maxTime: 10800
-maxDepth: 4
+maxDepth: 1
 
 capability:
   noReset: "true"
@@ -19,28 +19,20 @@ testcase:
   steps: []
 
 selectedList: 
-# 顶部tab
-- xpath: //*[contains(@resource-id, 'id/tabLayout')]//*[@text!='']
+# 频道
+- xpath: //*[contains(@resource-id, 'id/listening_channel_name_view')]
 
-# 普通新闻 / for you视频
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/title')]
-# headline / 大图新闻
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/title_text')]
-# headline read more
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/tv_more')]
-# vskit
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/iv_play')]
-# 足球-主队名
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/iv_home')]
-# 足球-联赛名
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/tv_league')]
-# 足球-时间(点击进入比赛页)
-- xpath: //*[contains(@resource-id, 'id/news_content')]//*[contains(@resource-id, 'id/tv_time')]
+# 标题
+- xpath: //*[contains(@resource-id, 'id/title_text')]
+# 耳机图标
+- xpath: //*[contains(@resource-id, 'id/listening_normal_container_layout')]
+# 浮窗icon
+- xpath: //*[contains(@resource-id, 'id/audio_player_expand_lottie_view')]
 
 firstList: []
 lastList:
 # 最后再遍历频道
-- xpath: //*[contains(@resource-id, 'id/tabLayout')]//*
+- xpath: //*[contains(@resource-id, 'id/listening_channel_icon_view')]
 
 backButton:
 - xpath: "Navigate up"
@@ -50,8 +42,8 @@ triggerActions:
 # 关强制弹窗
 - xpath: //*[contains(@resource-id, 'id/tv_close')]
   times: 0
-# 强制选中home tab
-- xpath: //*[contains(@resource-id, 'id/tab_news') and @selected='false']
+# 强制选中listening tab
+- xpath: //*[contains(@resource-id, 'id/tab_listening') and @selected='false']
   times: 0
 
 xpathAttributes:
