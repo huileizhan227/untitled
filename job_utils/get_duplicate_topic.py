@@ -35,6 +35,13 @@ def get_headers(country, lang, operid):
     return headers
 
 def get_channel_ids(country, lang, operid):
+    '''
+    通过接口从common config中取到对应的topic_channels
+    :param country: 国家缩写
+    :param lang: 语种缩写
+    :param operid: 国家语种对应的operid
+    :return: channel_id的list
+    '''
     url = 'https://test.morenews1.com/api/common/config/query'
     headers = get_headers(country, lang, operid)
     body = [{"appId": "common", "namespace": "application", "operId": operid, "configKey": "topic_channels_version_en"}]
@@ -51,6 +58,16 @@ def get_channel_ids(country, lang, operid):
     return result
 
 def get_topics(country, lang, operid, channel_id, count, lastid='first'):
+    '''
+    通过接口请求返回对应channel_id的topic，并检测是否有重复；如有重复会打印相应结果
+    :param country: 国家缩写
+    :param lang: 语种缩写
+    :param operid: 国家语种对应的operid
+    :param channel_id:
+    :param count: 接口一次请求返回多少条数据
+    :param lastid:
+    :return:
+    '''
     id = ''
     headers = get_headers(country, lang, operid)
     while True:
