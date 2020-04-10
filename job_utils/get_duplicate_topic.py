@@ -7,11 +7,11 @@
 import requests
 import json
 
-def get_url(channel_id, lastid, count):
-    url_base = 'http://test.morenews1.com/api/contentQuery/channelFollows?channelId={}&lastType=&lastId={}&count={}&withType=true'
-    return url_base.format(channel_id, lastid, count)
+def get_url(channel_id, lastid, count, env):
+    url_base = 'http://{}.morenews1.com/api/contentQuery/channelFollows?channelId={}&lastType=&lastId={}&count={}&withType=true'
+    return url_base.format(env, channel_id, lastid, count)
 
-def get_headers(country, lang, operid):
+def get_headers(country, lang, operid, env):
     headers = {
         'ClientId': 'app',
         'PhoneModel': 'itel S31',
@@ -26,7 +26,7 @@ def get_headers(country, lang, operid):
         'netType': 'WIFI',
         'lang': str(lang),
         'User-Agent': 'company/more client/more county/ke lan/en operatorId/1 version/2.3.0 build/81 android/6.0 manufacturer/itel model/itel+S31 channel/more deviceId/e3a44a40afdad5e1360dc91c5ffcbf86',
-        'Host': 'test.morenews1.com',
+        'Host': '{}.morenews1.com'.format(env),
         # 'Connection': 'Keep-Alive',
         'Connection': 'close',
         'Accept-Encoding': 'gzip',
@@ -35,7 +35,7 @@ def get_headers(country, lang, operid):
     }
     return headers
 
-def get_channel_ids(country, lang, operid):
+def get_channel_ids(country, lang, operid, env):
     '''
     通过接口从common config中取到对应的topic_channels
     :param country: 国家缩写
@@ -43,8 +43,8 @@ def get_channel_ids(country, lang, operid):
     :param operid: 国家语种对应的operid
     :return: channel_id的list
     '''
-    url = 'http://test.morenews1.com/api/common/config/query'
-    headers = get_headers(country, lang, operid)
+    url = 'http://{}.morenews1.com/api/common/config/query'.format(env)
+    headers = get_headers(country, lang, operid, env)
     body = [{"appId": "common", "namespace": "application", "operId": operid, "configKey": "topic_channels_version_en"}]
     re = requests.post(url, headers=headers, data=json.dumps(body)).json()
     chs = re['data'][0]['configValue']
@@ -58,7 +58,7 @@ def get_channel_ids(country, lang, operid):
             result.append(ch_id)
     return result
 
-def get_topics(country, lang, operid, channel_id, count, lastid='first'):
+def get_topics(country, lang, operid, channel_id, count, lastid, env):
     '''
     通过接口请求返回对应channel_id的topic，并检测是否有重复；如有重复会打印相应结果
     :param country: 国家缩写
@@ -70,9 +70,9 @@ def get_topics(country, lang, operid, channel_id, count, lastid='first'):
     :return:
     '''
     id = ''
-    headers = get_headers(country, lang, operid)
+    headers = get_headers(country, lang, operid, env)
     while True:
-        url = get_url(channel_id, lastid, count)
+        url = get_url(channel_id, lastid, count, env)
         re = requests.get(url, headers=headers, verify=False).json()
         datas = re['data']
         names = []
@@ -90,6 +90,8 @@ def get_topics(country, lang, operid, channel_id, count, lastid='first'):
             break
 
 if __name__=='__main__':
+    env = 'test'    # or 'www'
+    # env = 'www'
     oper_ids = {
         'ke_en': 1,
         'ng_en': 2,
@@ -99,14 +101,15 @@ if __name__=='__main__':
     }
     count = 1000
     lastid = 'first'
+    print('env:', env)
     for key in oper_ids:
         country = key.split('_')[0]
         lang = key.split('_')[1]
         operid = oper_ids[key]
         print('start:',country, lang, operid)
-        channel_ids = get_channel_ids(country, lang, operid)
+        channel_ids = get_channel_ids(country, lang, operid, env)
         for channel_id in channel_ids:
-            get_topics(country, lang, operid, channel_id, count, lastid)
+            get_topics(country, lang, operid, channel_id, count, lastid, env)
 
 
 
