@@ -110,7 +110,3 @@ if __name__=='__main__':
         channel_ids = get_channel_ids(country, lang, operid, env)
         for channel_id in channel_ids:
             get_topics(country, lang, operid, channel_id, count, lastid, env)
-
-
-
-
